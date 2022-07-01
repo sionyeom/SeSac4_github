@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script>
-      var num
-      function hello() {
-        var number = 1
-        alert(num)
+      var sum = 0
+      for (var i = 0; i < 101; i++) {
+        if (i % 2 == 0 || i % 3 == 0) {
+          sum += i
+        }
       }
-      alert(num)
+      console.log(sum)
     </script>
   </head>
   <body></body>
