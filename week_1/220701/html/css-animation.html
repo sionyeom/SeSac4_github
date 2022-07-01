@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @keyframes myanimation {
+            0% {left: 0px;}
+            25% {left: 100px;}
+            50% {left: 200px;}
+            75% {left: 300px;}
+            100% {left: 400px;}
+        } 
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: black;
+            position: relative;
+            /* 애니메이션 지정 */
+            animation-name: myanimation;
+            /* 지속 속도 */
+            animation-duration: 10s;
+            /* 진행 형태 */
+            animation-timing-function: ease-in-out;
+            /* 반복 횏수*/
+            animation-iteration-count: 3;
+            /* 시간만큼 기다렸다 진행 */
+            animation-delay: 3s;
+            /* 진행/중단 여부 */
+            animation-play-state:running;
+            /* animation: animation-name: myanimation animation-iteration-count animation-direction; */
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+</html>
