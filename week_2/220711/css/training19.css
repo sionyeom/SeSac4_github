@@ -16,15 +16,12 @@
   font-weight: bold;
 }
 .profileContainer {
-  width: 59%;
-  display: inline-block;
 }
 .describeContainer {
-  width: 40%;
-  display: inline-block;
 }
 .contentHeader {
   font-size: 25px;
+  padding-top: 25px;
 }
 .profileList {
   display: inline-block;
@@ -34,6 +31,7 @@
   margin: 10px 0;
 }
 .profileList > li {
+  width: 100%;
   font-size: 17px;
   padding-bottom: 5px;
 }
@@ -47,10 +45,16 @@
   margin-top: 15px;
 }
 .techList {
-  display: inline-block;
   vertical-align: middle;
   list-style: none;
+  text-align: center;
   padding: 0 0 0 0;
+}
+.techList > li {
+  padding-bottom: 15px;
+}
+.techBtn {
+  margin-bottom: 15px;
 }
 .describe.second {
   margin: 0;
