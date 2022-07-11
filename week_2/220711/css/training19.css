@@ -2,9 +2,11 @@
   margin-left: auto;
 }
 .mainContainer {
-  border-bottom: 1px solid black;
   padding-top: 56px;
   height: 700px;
+}
+.aboutContainer {
+  background-color: #eeefee;
 }
 .aboutHeader {
   font-size: 30px;
@@ -23,4 +25,48 @@
 }
 .contentHeader {
   font-size: 25px;
+}
+.profileList {
+  display: inline-block;
+  vertical-align: middle;
+  list-style: none;
+  padding: 0 0 0 20px;
+  margin: 10px 0;
+}
+.profileList > li {
+  font-size: 17px;
+  padding-bottom: 5px;
+}
+.describe {
+  padding-top: 20px;
+}
+.profileContainer {
+  vertical-align: top;
+}
+.contentHeader.second {
+  margin-top: 15px;
+}
+.techList {
+  display: inline-block;
+  vertical-align: middle;
+  list-style: none;
+  padding: 0 0 0 0;
+}
+.describe.second {
+  margin: 0;
+}
+.profileContent {
+  padding-top: 20px;
+}
+@media screen and (max-width: 991px) {
+  .profileContainer {
+    display: block;
+    width: 100%;
+  }
+  .describeContainer {
+    width: 100%;
+  }
+  .contentHeader {
+    margin-top: 15px;
+  }
 }
