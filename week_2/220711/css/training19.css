@@ -1,0 +1,26 @@
+.headerGnb {
+  margin-left: auto;
+}
+.mainContainer {
+  border-bottom: 1px solid black;
+  padding-top: 56px;
+  height: 700px;
+}
+.aboutHeader {
+  font-size: 30px;
+  text-align: center;
+  height: 60px;
+  line-height: 60px;
+  font-weight: bold;
+}
+.profileContainer {
+  width: 59%;
+  display: inline-block;
+}
+.describeContainer {
+  width: 40%;
+  display: inline-block;
+}
+.contentHeader {
+  font-size: 25px;
+}
