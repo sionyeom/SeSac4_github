@@ -21,7 +21,7 @@ login('kim', '1234', (user) => {
   console.log('user님 환영')
   getVideo(user, (videos) => {
     console.log(videos)
-    getDetail(video[0], (title) => {
+    getDetail(videos[0], (title) => {
       console.log(title)
     })
   })
