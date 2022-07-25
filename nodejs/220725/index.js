@@ -41,7 +41,6 @@ app.post("/practice_receive_practice32", function(req, res) {
   console.log("save on info.txt");
   // 1. 받아온 값들 콘솔에 출력
   var content = `${req.body.id}//${req.body.name}//${req.body.pw}`;
-  console.log(content);
   // 2. 받아 온 값들을 info.txt에 입력하기
   fs.writeFileSync("info.txt", content.toString(), err => {
     if (err) {
