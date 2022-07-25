@@ -7,31 +7,22 @@
     <title>Index.ejs</title>
 </head>
 <body>
-    <form action="receive" method="get">
+    <form action="practice_receive_practice33" method="post">
         <fieldset>
-            <legend>이름 / 성별</legend>
+            <legend>로그인</legend>
         <label>
-            이름 : 
-            <input type="text" name="name" placeholder="이름" required><br>
+            아이디
+            <br>
+            <input type="text" name="id" placeholder="이름" ><br>
         </label>
-        <input type="radio" name="gender" id="gender_1" value="남">
-        <label for="gender_1">남</label>
-        <input type="radio" name="gender" id="gender_2" value="여">
-        <label for="gender_2">여</label>
-        </fieldset>
         <br>
-        <fieldset>
-        <input type="checkbox" name="sports" value="축구">축구
-        <input type="checkbox" name="sports" value="야구">야구
-        <input type="checkbox" name="sports" value="농구">농구<br>
-        <select name="year">
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-            <option value="2020">2020</option>
-            <option value="2019">2019</option>
-            <option value="2018">2018</option>
-        </select>
+        <label>
+            비밀번호
+            <br>
+            <input type="text" name="pw" placeholder="비밀번호" ><br>
+        </label>
         </fieldset>
+        
         <br>
         <button>전송</button>
     </form>
