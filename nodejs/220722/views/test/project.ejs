@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CDN -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.css">
+
+    <!-- CSS -->
+    <title>포트폴리오</title>
+  </head>
+<style>
+.headerGnb {
+  margin-left: auto;
+}
+.mainContainer {
+  padding-top: 56px;
+  height: 700px;
+}
+.aboutContainer {
+  background-color: #eeefee;
+}
+.aboutHeader {
+  font-size: 30px;
+  text-align: center;
+  height: 60px;
+  line-height: 60px;
+  font-weight: bold;
+}
+.contentHeader.under {
+}
+.profileContainer {
+}
+.describeContainer {
+}
+.contentHeader {
+  font-size: 25px;
+  padding-top: 25px;
+}
+.profileList {
+  display: inline-block;
+  vertical-align: middle;
+  list-style: none;
+  padding: 0 0 0 20px;
+  margin: 10px 0;
+}
+.profileList > li {
+  width: 100%;
+  font-size: 17px;
+  padding-bottom: 5px;
+}
+.describe {
+  padding-top: 20px;
+}
+.profileContainer {
+  vertical-align: top;
+}
+.contentHeader.second {
+  margin-top: 15px;
+}
+.techList {
+  vertical-align: middle;
+  list-style: none;
+  text-align: center;
+  padding: 0 0 0 0;
+}
+.techList > li {
+  padding-bottom: 15px;
+}
+.techBtn {
+  margin-bottom: 15px;
+}
+.describe.second {
+  margin: 0;
+}
+.profileContent {
+  padding-top: 20px;
+}
+@media screen and (max-width: 991px) {
+  .profileContainer {
+    display: block;
+    width: 100%;
+  }
+  .describeContainer {
+    width: 100%;
+  }
+  .contentHeader {
+    margin-top: 15px;
+  }
+}
+
+</style>
+  <body>
+    <!-- header -->
+    <nav
+      class="navbar navbar-expand-lg position-fixed w-100 navbar-light bg-dark"
+    >
+      <a class="navbar-brand text-white" href="#">염시온 포트폴리오</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="headerGnb">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav text-white mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link text-white" href="#">
+                Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link text-white" href="#">
+                About
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link text-white" href="#">
+                Project
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link text-white" href="#">
+                Career
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- 헤더 끝 -->
+    <div class="mainContainer">
+      안녕하세요. 프론트엔드를 지망하고 있는 염시온입니다.
+    </div>
+    <div class="aboutContainer border border-dark">
+      <div class="aboutHeader">
+        About
+      </div>
+      <div class="aboutContent">
+        <div class="profileContainer">
+          <div class="contentHeader">
+            Profile
+          </div>
+          <div class="profileContent">
+            <img src="https://via.placeholder.com/157x202" alt="얼굴 사진" />
+            <ul class="profileList">
+              <li>염시온</li>
+              <li>프론드엔드 개발자 [신입]</li>
+              <li>1998.02.13</li>
+              <li>서울시 영등포구 신길동</li>
+              <li>010-8936-3419</li>
+              <li>duatldhs5555@gmail.com</li>
+            </ul>
+          </div>
+        </div>
+        <div class="describeContainer">
+          <div class="contentWrapper">
+            <div class="contentHeader">Me</div>
+            <div class="describeComment">
+              <div class="describe">
+                안녕하세요. 프론트엔드를 지망하고 있는 염시온입니다.
+              </div>
+              <div class="describe">
+                주로 관심있고, 사용하는 언어는 HTML,CSS,JAVASCRIPT,JQUERY
+                입니다.
+              </div>
+            </div>
+            <script>
+              const labels = [
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+              ]
+
+              const data = {
+                labels: labels,
+                datasets: [
+                  {
+                    label: 'My First dataset',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [0, 10, 5, 2, 20, 30, 45],
+                  },
+                ],
+              }
+
+              const config = {
+                type: 'line',
+                data: data,
+                options: {},
+              }
+              const myChart = new Chart(
+                document.getElementById('myChart'),
+                config,
+              )
+            </script>
+            <div id="myChart"></div>
+            <div class="contentHeader under">Detailed Description</div>
+            <div class="describeMent">
+              <div class="describe second">
+                <ul class="techList">
+                  <li>
+                    <a
+                      class="btn btn-primary techBtn"
+                      data-toggle="collapse"
+                      href="#html"
+                      role="button"
+                      aria-expanded="false"
+                      aria-controls="html"
+                    >
+                      HTML
+                    </a>
+                    <div class="collapse" id="html">
+                      <div class="card card-body">
+                        기본적인 html은 할 수 있습니다.
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <a
+                      class="btn btn-primary techBtn"
+                      data-toggle="collapse"
+                      href="#css"
+                      role="button"
+                      aria-expanded="false"
+                      aria-controls="collapseExample"
+                    >
+                      CSS
+                    </a>
+                    <div class="collapse" id="css">
+                      <div class="card card-body">
+                        기본적인 css는 할 수 있습니다.
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <a
+                      class="btn btn-primary techBtn"
+                      data-toggle="collapse"
+                      href="#javascript"
+                      role="button"
+                      aria-expanded="false"
+                      aria-controls="javascript"
+                    >
+                      JavaScript
+                    </a>
+                    <div class="collapse" id="javascript">
+                      <div class="card card-body">
+                        기본적인 자바스크립트는 할 수 있습니다.
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 프로젝트 -->
+        <div class="projectContainer">
+          <div class="contentHeader">
+            Projects
+          </div>
+          <div
+            id="carouselExampleIndicators"
+            class="carousel slide"
+            data-ride="carousel"
+          >
+            <ol class="carousel-indicators">
+              <li
+                data-target="#carouselExampleIndicators"
+                data-slide-to="0"
+                class="active"
+              ></li>
+              <li
+                data-target="#carouselExampleIndicators"
+                data-slide-to="1"
+              ></li>
+              <li
+                data-target="#carouselExampleIndicators"
+                data-slide-to="2"
+              ></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img
+                  class="d-block w-100"
+                  src="https://via.placeholder.com/1500x600"
+                  alt="Third slide"
+                />
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>1번째 프로젝트</h5>
+                  <p>1번째 프로젝트입니다.</p>
+                  <a class="btn btn-link" data-toggle="collapse" href="#">
+                    보기
+                  </a>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img
+                  class="d-block w-100"
+                  src="https://via.placeholder.com/1500x600"
+                  alt="Third slide"
+                />
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>2번째 프로젝트</h5>
+                  <p>2번째 프로젝트입니다.</p>
+                  <a class="btn btn-link" data-toggle="collapse" href="#">
+                    보기
+                  </a>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img
+                  class="d-block w-100"
+                  src="https://via.placeholder.com/1500x600"
+                  alt="Third slide"
+                />
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>3번째 프로젝트</h5>
+                  <p>3번째 프로젝트입니다.</p>
+                  <a class="btn btn-link" data-toggle="collapse" href="#">
+                    보기
+                  </a>
+                </div>
+              </div>
+            </div>
+            <a
+              class="carousel-control-prev"
+              href="#carouselExampleIndicators"
+              role="button"
+              data-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a
+              class="carousel-control-next"
+              href="#carouselExampleIndicators"
+              role="button"
+              data-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -8,7 +8,8 @@ app.use("/abc", express.static("public"));
 // 정적 파일 관리
 
 app.get("/", (req, res) => {
-  res.render("test");
+  list = [1, 2, 3];
+  res.render("test/project", { a: "asd", b: "asd", list: list });
   // ejs 파일일 이용할 것이고, views 폴더에 자동적으로 접근한다.
 });
 
