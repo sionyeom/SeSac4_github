@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get("/", function(req, res) {
@@ -18,7 +19,9 @@ app.get("/receive", function(req, res) {
 
 app.post("/receive", function(req, res) {
   console.log("receive-post");
-  res.render("index");
+  console.log(req.body);
+  const { name, year, sport, gender } = req.body;
+  res.render("receive", req.body);
 });
 
 app.listen(port, () => {
