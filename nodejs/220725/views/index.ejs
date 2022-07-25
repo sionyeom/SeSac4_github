@@ -7,10 +7,20 @@
     <title>Index.ejs</title>
 </head>
 <body>
-    <form action="receive" method="post">
-        <input type="text" name="name" placeholder="이름" required><br>
-        <input type="radio" name="gender" value="남">남
-        <input type="radio" name="gender" value="여">여<br>
+    <form action="receive" method="get">
+        <fieldset>
+            <legend>이름 / 성별</legend>
+        <label>
+            이름 : 
+            <input type="text" name="name" placeholder="이름" required><br>
+        </label>
+        <input type="radio" name="gender" id="gender_1" value="남">
+        <label for="gender_1">남</label>
+        <input type="radio" name="gender" id="gender_2" value="여">
+        <label for="gender_2">여</label>
+        </fieldset>
+        <br>
+        <fieldset>
         <input type="checkbox" name="sports" value="축구">축구
         <input type="checkbox" name="sports" value="야구">야구
         <input type="checkbox" name="sports" value="농구">농구<br>
@@ -21,6 +31,8 @@
             <option value="2019">2019</option>
             <option value="2018">2018</option>
         </select>
+        </fieldset>
+        <br>
         <button>전송</button>
     </form>
 </body>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="practice_receive" method="get">
+        <fieldset>
+            <legend>get으로 정보 받기</legend>
+            <p>폼 전송 - 실습</p>
+            <p>이름
+                <input type="text" name="name" required>
+            </p>
+            <p>성별
+                <input type="radio" name="gender" id="gender_1" value="남자">
+                <label for="gender_1">남자</label> 
+                <input type="radio" name="gender" id="gender_2" value="여자">
+                <label for="gender_2">여자</label> 
+            </p>
+            <p>
+                생년월일
+                <select name="birthYear">
+                <%for(var i = 1950; i < 2023; i++) { %>
+                    <option value= <%=i%> >
+                        <%= i %>
+                    </option>
+                <% } %>
+            </select>
+            년
+            <select name="birthMonth">
+                <%for(var i = 1; i < 13; i++) { %>
+                    <option value= <%=i%> >
+                        <%= i %>
+                    </option>
+                <% } %>
+            </select>
+            월
+            <select name="birthDay">
+                <%for(var i = 1; i < 32; i++) { %>
+                    <option value= <%=i%> >
+                        <%= i %>
+                    </option>
+                <% } %>
+            </select>
+            일
+            </p>
+            <p>
+                관심사
+                <label>
+                    <input type="checkbox" name="interests" value="여행">
+                    여행
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="패션">
+                    패션
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="음식">
+                    음식
+                </label>
+            </p>
+            <button>회원가입</button>
+        </fieldset>
+    </form>
+</body>
+</html>
