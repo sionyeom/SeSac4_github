@@ -5,13 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Compressed CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/css/foundation.min.css" crossorigin="anonymous">
+    <!-- Compressed JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/js/foundation.min.js" crossorigin="anonymous"></script>
 </head>
 <style>
+    /* form 가운데 정렬 */
+    .grid-x {
+        justify-content: center
+    }
+    .container {
+        margin-top: 20%;
+    }
 </style>
 <body>
-    <p>info.txt 파일에 정보가 저장되었습니다.</p>
-    <button onclick="history.back()">뒤로 가기</button>
-</p>
-
+    <div class="container">
+        <div class="grid-x grid-padding-x">
+            <p>회원가입이 완료되었습니다!</p>
+        </div>
+        <div class="grid-x grid-padding-x">
+            <p>입력하신 정보는 info.txt 파일에 저장되었습니다.</p>
+        </div>
+        <div class="grid-x grid-padding-x">
+            <button class="button cell medium-6 large-4" onclick="history.back()">뒤로 가기</button>
+        </div>
+    </div>
 </body>
 </html>
