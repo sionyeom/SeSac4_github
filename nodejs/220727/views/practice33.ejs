@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const sendForm = () => {
+            var form = document.getElementById("form_info");
+            var checkBoxes = document.getElementsByName("interests");
+            var checkBoxesList = "";
+            for (var i = 0; i < checkBoxes.length; i++) {
+                if (checkBoxes[i].checked) {
+                    checkBoxesList += checkBoxes[i].value
+                }
+            }
+            axios({
+                method : "get",
+                url : "http://localhost:8080/receive-practice33",
+                params : {
+                    name : form.name.value,
+                    gender : form.gender.value,
+                    birthday : `${form.birthYear.value}년 ${form.birthMonth.value}월 ${form.birthDay.value}일`,
+                    interests : checkBoxesList,                    
+                }
+            }).then((res) => {
+                console.log(res.data);
+                alert(`${res.data.name}님 회원가입을 축하드립니다!`);
+                alert(`회원정보를 확인해주세요. \n이름 : ${res.data.name} \n성별 : ${res.data.gender}\n생년월일  ${res.data.birthday} \n관심사 : ${res.data.interests}\n` )
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <form action="practice_receive" method="get" id="form_info">
+        <fieldset>
+            <legend>axios로 보내기</legend>
+            <p>폼 전송 - 실습</p>
+            <p>이름
+                <input type="text" name="name" required>
+            </p>
+            <p>성별
+                <input type="radio" name="gender" id="gender_1" value="남자">
+                <label for="gender_1">남자</label> 
+                <input type="radio" name="gender" id="gender_2" value="여자">
+                <label for="gender_2">여자</label> 
+            </p>
+            <p>
+                생년월일
+                <select name="birthYear">
+                <%for(var i = 1950; i < 2023; i++) { %>
+                    <option value= <%=i%> >
+                        <%= i %>
+                    </option>
+                <% } %>
+            </select>
+            년
+            <select name="birthMonth">
+                <%for(var i = 1; i < 13; i++) { %>
+                    <option value= <%=i%> >
+                        <%= i %>
+                    </option>
+                <% } %>
+            </select>
+            월
+            <select name="birthDay">
+                <%for(var i = 1; i < 32; i++) { %>
+                    <option value= <%=i%> >
+                        <%= i %>
+                    </option>
+                <% } %>
+            </select>
+            일
+            </p>
+            <p>
+                관심사
+                <label>
+                    <input type="checkbox" name="interests" value="여행">
+                    여행
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="패션">
+                    패션
+                </label>
+                <label>
+                    <input type="checkbox" name="interests" value="음식">
+                    음식
+                </label>
+            </p>
+            <button type="button" onclick="sendForm();">회원가입</button>
+        </fieldset>
+    </form>
+</body>
+</html>

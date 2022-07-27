@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index.ejs</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+         const sendForm = () => {
+            var form = document.getElementById("form_info");
+            axios({
+                method : "post",
+                url : "http://localhost:8080/receive-practice34",
+                data : {
+                    id : form.id.value,
+                    pw : form.pw.value,
+                }
+            }).then((res) => {
+                return res.data;
+            }).then((d) => {
+                // 1. 받아온 데이터를 변수로 할당하여 저장
+                let data = d.data;
+                let id = d.id;
+                let pw = d.pw;
+                // 2. msg id에 접근
+                let msg = document.getElementsByClassName("msg")[0];
+                // 3. 로그인 각각 결과에 맞게 text 및 color 변경
+                if(data[0] === id && data[2] === pw) {
+                    // success
+                    msg.innerText="로그인 성공"; 
+                    msg.style.color="blue"; 
+                }else {
+                    // fail
+                    msg.innerText="로그인 실패";
+                    msg.style.color="red"; 
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <form action="receive-practice34" method="post" id="form_info">
+        <fieldset>
+            <legend>로그인</legend>
+        <label>
+            아이디
+            <br>
+            <input type="text" name="id" placeholder="이름" ><br>
+        </label>
+        <br>
+        <label>
+            비밀번호
+            <br>
+            <input type="password" name="pw" placeholder="비밀번호" ><br>
+        </label>
+        </fieldset>
+        <br>
+        <p class="msg"></p>
+        <button type="button" onclick="sendForm();">로그인</button>
+    </form>
+</body>
+</html>
