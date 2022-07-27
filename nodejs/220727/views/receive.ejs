@@ -7,17 +7,16 @@
     <title>Axios</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        var i;
+        var i = 0;
         const sendPost = () => {
             axios({
                 method : "post",
                 url : "http://localhost:8080/receive",
                 data : {
-                    name : "hello"
+                    name : { "1" : "a"}
                 }
             }).then((res) => {
                 console.log(res.data);
-                i = res.data.name;
             })
         }
 
@@ -26,7 +25,6 @@
 <body>
     <form action="/receive" method="get">
         <button type="button" onclick="sendPost();">버튼</button>
-        <input type="text" name="name" value=i>
     </form>
     <button onclick="sendPost();">Post 보내기</button>
 </body>
