@@ -28,13 +28,9 @@ app.get("/practice33", function(req, res) {
 
 // get or post 값 받는 페이지
 app.get("/practice_receive", function(req, res) {
-  console.log("receive-get");
-  console.log(req.query);
   res.render("practice_receive", req.query);
 });
 app.post("/practice_receive_post", function(req, res) {
-  console.log("practice_receive_post");
-  console.log(req.body);
   res.render("practice_receive_post", req.body);
 });
 app.post("/practice_receive_practice32", function(req, res) {
@@ -71,8 +67,6 @@ app.post("/practice_receive_practice33", function(req, res) {
 
 app.get("/receive", function(req, res) {
   console.log("receive-get");
-  console.log(req.query);
-  console.log(req);
   res.render("receive", req.query);
 });
 
