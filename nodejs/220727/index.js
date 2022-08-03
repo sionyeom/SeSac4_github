@@ -12,7 +12,6 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
   res.render("index");
 });
-
 app.get("/practice33", (req, res) => {
   res.render("practice33");
 });
