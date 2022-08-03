@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index.ejs</title>
+</head>
+<body>
+    <form action="/user/register" method="post" id="form_info">
+        <fieldset>
+            <legend>개인 정보</legend>
+        <label>
+            아이디
+            <br>
+            <input type="text" name="id" placeholder="이름" ><br>
+        </label>
+        <br>
+        <label>
+            비밀번호
+            <br>
+            <input type="password" name="pw" placeholder="비밀번호" ><br>
+        </label>
+        <br>
+        <label>
+            이름
+            <br>
+            <input type="text" name="name" placeholder="이름" ><br>
+        </label>
+        <br>
+        <label>
+            나이
+            <br>
+            <input type="text" name="age" placeholder="나이" ><br>
+        </label>
+        </fieldset>
+        <br>
+        <p class="msg"></p>
+        <button type="submit">로그인</button>
+    </form>
+</body>
+</html>
