@@ -1,29 +1,72 @@
-const fs = require("fs").promises;
+const fs = require("fs");
 
 exports.post_user = function(data) {
+  // 1. 기존 데이터 읽어와서 4개씩 배열로 만들기
+  var text = fs.readFileSync("info.txt", { encoding: "utf8", flag: "r" });
+  var dataArr = fs
+    .readFileSync("info.txt", { encoding: "utf8", flag: "r" })
+    .split("\n");
+  var result = [];
+  for (i = 0; i < dataArr.length; i++) {
+    var arr = dataArr[i].split("//");
+    result.push(arr);
+  }
+  // 3. 새로 들어온 데이터 받아오기
   const { id, name, pw, age } = data;
-  console.log(data);
-  // 1. 받아온 값들 콘솔에 출력
-  var content = `${id}//${name}//${pw}//${age}`;
-  // 2. 받아 온 값들을 info.txt에 입력하기
+  // 3-1. 기존 데이터에 새로 들어온 데이터 더하기
+  var content = `${text}\n${id}//${pw}//${name}//${age}//../../${id}.png`;
+  // 4. 다시 쓰기
   fs.writeFileSync("info.txt", content.toString(), err => {
     if (err) {
       console.error(err);
       return;
     }
+
     //file written successfully
   });
 };
 
+exports.test = () => {
+  // 1. 읽어와서 배열로 저장
+  var dataArr = fs
+    .readFileSync("info.txt", { encoding: "utf8", flag: "r" })
+    .split("\n");
+  var result = [];
+  for (i = 0; i < dataArr.length; i++) {
+    var arr = dataArr[i].split("//");
+    result.push(arr);
+  }
+  console.log(result);
+};
+
 exports.get_user = async () => {
-  var buffer = await fs.readFile("./info.txt");
-  return buffer.toString();
+  var buffer = await fs.readFileSync("info.txt", {
+    encoding: "utf8",
+    flag: "r"
+  });
+  var dataArr = fs
+    .readFileSync("info.txt", { encoding: "utf8", flag: "r" })
+    .split("\n");
+  var result = [];
+  for (i = 0; i < dataArr.length; i++) {
+    var arr = dataArr[i].split("//");
+    result.push(arr);
+  }
+
+  return result;
 };
 
 exports.post_login = data => {
   const { id, pw } = data;
   console.log(data);
-  const dataArr = fs
+  var dataArr = fs
     .readFileSync("info.txt", { encoding: "utf8", flag: "r" })
-    .split("//");
+    .split("\n");
+  var result = [];
+  for (i = 0; i < dataArr.length; i++) {
+    var arr = dataArr[i].split("//");
+    result.push(arr);
+  }
 };
+
+exports.login = (dataArr, req, res) => {};
