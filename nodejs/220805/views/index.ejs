@@ -5,25 +5,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        function writeComment(){
+            var form = document.getElementById('form_comment');
+            axios({
+                method : 'post',
+                url : "http://localhost:8000/visitor/write",
+                data : {
+                    name : form.name.value,
+                    comment : form.comment.value
+                }
+            })
+            .then((rep) => { return rep.data; })
+                .then((data) => {
+                    // data = { id: 9 }
+
+                    let html = 
+                    "<tr><td>" + data.id + "</td><td>" + form.name.value + "</td><td>" + form.comment.value + "</td></tr>";
+
+                    $( "table" ).append(html);
+                });
+        }
+
+        function deleteComment(a) {
+            let id = $(a).val();
+            axios({
+                method : 'post',
+                url : "http://localhost:8000/visitor/delete",
+                data : {
+                    id : id
+                }
+            })
+            .then((rep) => { return rep.data; })
+            .catch(error => {console.log(error.response)});
+        }
+    </script>
 </head>
 <body>
-    <form action="/user/login" method="post">
+    <form id="form_comment" method="post" action="visitor/write">
         <fieldset style="width:300px;">
             <legend>방명록 등록</legend>
-            <input type="text" name="id" placeholder="사용자 이름"><br>
-            <input type="text" name="pw" placeholder="방명록"><br>
-            <button type="submit">등록</button>
+            <input type="text" name="name" placeholder="사용자 이름"><br>
+            <input type="text" name="comment" placeholder="방명록"><br>
+            <button type="submit" onclick="writeComment();">등록</button>
         </fieldset>
     </form>
     <br>
-    <table border="1">
+    <table id="visitr_list" border="1" cellspacing="0" cellpadding="5">
         <tr>
-            <td>ID</td>
-            <td>작성자</td>
-            <td>방명록</td>
-            <td>수정</td>
-            <td>삭제</td>
+            <th>ID</th>
+            <th>이름</th>
+            <th>방명록</th>
+            <th>수정</th>
+            <th>삭제</th>
         </tr>
-    </table>
+    <%
+        for (let i = 0; i < data.length; i++) {    
+    %>
+        <tr>
+            <td id="id"><%=data[i].id%></td>
+            <td><%=data[i].name%></td>
+            <td><%=data[i].comment%></td>
+            <td><button value=<%=data[i].id %> onclick="modifyComment(this);">수정</button></td>
+            <td><button value=<%=data[i].id %> onclick="deleteComment(this);">삭제</button></td>
+        </tr>
+    <%
+        }
+    %>
+</table>
+    <p></p>
 </body>
 </html>

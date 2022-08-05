@@ -1,5 +1,28 @@
 const Visitor = require("../model/Visitor");
 
-exports.index = (req, res) => {
-  res.render("index");
+exports.get_visitor = (req, res) => {
+  // mysql 패키지는 promise가 지원이 안됨.
+  Visitor.get_visitor(function(result) {
+    // console.log("result : ", result);
+    // res.send(result);
+    res.render("index", { data: result });
+  });
+};
+
+exports.post_comment = function(req, res) {
+  console.log(req.body);
+  Visitor.insert(req.body.name, req.body.comment, function(result) {
+    res.send({ id: result });
+  });
+};
+
+exports.modify_comment = function(req, res) {
+  console.log(req.body);
+};
+
+exports.delete_comment = function(req, res) {
+  console.log(req.body);
+  Visitor.delete(req.body.name, req.body.comment, function(result) {
+    res.send({ id: result });
+  });
 };
