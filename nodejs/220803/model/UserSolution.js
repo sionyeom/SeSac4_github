@@ -56,17 +56,15 @@ exports.get_user = async () => {
   return result;
 };
 
-exports.post_login = data => {
-  const { id, pw } = data;
-  console.log(data);
-  var dataArr = fs
-    .readFileSync("info.txt", { encoding: "utf8", flag: "r" })
-    .split("\n");
-  var result = [];
-  for (i = 0; i < dataArr.length; i++) {
-    var arr = dataArr[i].split("//");
-    result.push(arr);
+exports.post_login = async (req, res) => {
+  for (let i = 0; i < infos.length; i++) {
+    var info = data.split("//");
+    if (info[0] != req.body.id) {
+      res.send("성공");
+      return false;
+    }
   }
+  res.send("실패");
 };
 
 exports.login = (dataArr, req, res) => {};
