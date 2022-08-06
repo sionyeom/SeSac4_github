@@ -1,80 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<html>
+  <head>
+    <title>방명록</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
     <script>
-        function writeComment(){
-            var form = document.getElementById('form_comment');
-            axios({
-                method : 'post',
-                url : "http://localhost:8000/visitor/write",
-                data : {
-                    name : form.name.value,
-                    comment : form.comment.value
-                }
-            })
-            .then((rep) => { return rep.data; })
-                .then((data) => {
-                    // data = { id: 9 }
+      // insert
+      function writeComment() {
+        var form = document.getElementById("form_comment");
+        axios({
+          method: "post",
+          url: "http://localhost:8080/visitor/write",
+          data: {
+            name: form.name.value,
+            comment: form.comment.value,
+          },
+        })
+          .then((rep) => {
+            // console.log(rep.data);
+            return rep.data;
+          })
+          .then((data) => {
+            let html =`<tr><td>${data.id}</td><td>${form.name.value}</td><td>${form.comment.value}</td>
+                <td><button onclick="updataInput(this);">수정</button></td>
+                <td><button value=${data.id} onclick="deleteComment(this);">삭제</button></td></tr>`;
 
-                    let html = 
-                    "<tr><td>" + data.id + "</td><td>" + form.name.value + "</td><td>" + form.comment.value + "</td></tr>";
+            $("table").append(html);
+          });
+      }
+      //   delete
+      function deleteComment(arg0) {
+        var value = $(arg0).val();
+        axios({
+          method: "post",
+          url: "http://localhost:8080/visitor/delete",
+          data: {
+            id: value
+          },
+        })
+        .then((rep) => {
+            console.log(rep.data.id);
+            $(arg0).parent().parent().remove();
+        })
+      }
+      
+      // Input값 갱신   
+      function updateInput(arg0) {
+        var value = $(arg0).val();
+        axios({
+          method : "post",
+          url : "http://localhost:8080/visitor/delete",
+          data : {
+            id : value
+          },
+        })
+        
+        console.log(value);
+      }
 
-                    $( "table" ).append(html);
-                });
-        }
+      // update
+      function updateComment() {
+        
+      }
 
-        function deleteComment(a) {
-            let id = $(a).val();
-            axios({
-                method : 'post',
-                url : "http://localhost:8000/visitor/delete",
-                data : {
-                    id : id
-                }
-            })
-            .then((rep) => { return rep.data; })
-            .catch(error => {console.log(error.response)});
-        }
+
     </script>
-</head>
-<body>
-    <form id="form_comment" method="post" action="visitor/write">
-        <fieldset style="width:300px;">
-            <legend>방명록 등록</legend>
-            <input type="text" name="name" placeholder="사용자 이름"><br>
-            <input type="text" name="comment" placeholder="방명록"><br>
-            <button type="submit" onclick="writeComment();">등록</button>
+  </head>
+  <body>
+    <div>
+      <form id="form_comment">
+        <fieldset>
+          <legend>방명록 등록</legend>
+          <div><input name="name" type="text" placeholder="사용자 이름" /></div>
+          <div><input name="comment" type="text" placeholder="방명록" /></div>
+          <div id="button-group">
+            <button type="button" onclick="writeComment();">등록</button>
+          </div>
         </fieldset>
-    </form>
-    <br>
+      </form>
+    </div>
+    <br />
     <table id="visitr_list" border="1" cellspacing="0" cellpadding="5">
+      <thead>
         <tr>
-            <th>ID</th>
-            <th>이름</th>
-            <th>방명록</th>
-            <th>수정</th>
-            <th>삭제</th>
+          <th>ID</th>
+          <th>작성자</th>
+          <th>방명록</th>
+          <th>수정</th>
+          <th>삭제</th>
         </tr>
-    <%
-        for (let i = 0; i < data.length; i++) {    
-    %>
-        <tr>
-            <td id="id"><%=data[i].id%></td>
-            <td><%=data[i].name%></td>
-            <td><%=data[i].comment%></td>
-            <td><button value=<%=data[i].id %> onclick="modifyComment(this);">수정</button></td>
-            <td><button value=<%=data[i].id %> onclick="deleteComment(this);">삭제</button></td>
+      </thead>
+      <tbody>
+        <% for ( let i = 0; i < data.length; i++ ){ %>
+        <tr id=<%=data[i].ID%>>
+          <td><%=data[i].ID%></td>
+          <td><%=data[i].name%></td>
+          <td><%=data[i].comment%></td>
+          <td><button value=<%=data[i].ID%> onclick="updateInput(this);">수정</button></td>
+          <td>
+            <button value=<%=data[i].ID%> onclick="deleteComment(this);">삭제</button>
+          </td>
         </tr>
-    <%
-        }
-    %>
-</table>
-    <p></p>
-</body>
+        <% } %>
+      </tbody>
+    </table>
+  </body>
 </html>

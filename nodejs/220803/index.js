@@ -21,17 +21,15 @@ const upload = multer({
       req.body.id = "dsds";
       const ext = path.extname(file.originalname);
       done(null, req.body.id, ext);
-    }
-  })
+    },
+  }),
 });
 
 app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.post("/upload/fields", upload.single("image1"), function(req, res) {
-  console.log(req.file);
-  console.log(req.body);
+app.post("/upload/fields", upload.single("image1"), function (req, res) {
   res.send("Upload");
 });
 

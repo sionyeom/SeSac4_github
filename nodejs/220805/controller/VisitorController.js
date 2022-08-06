@@ -10,7 +10,7 @@ exports.get_visitor = (req, res) => {
 };
 
 exports.post_comment = function(req, res) {
-  console.log(req.body);
+  // console.log(req.body);
   Visitor.insert(req.body.name, req.body.comment, function(result) {
     res.send({ id: result });
   });
@@ -21,8 +21,7 @@ exports.modify_comment = function(req, res) {
 };
 
 exports.delete_comment = function(req, res) {
-  console.log(req.body);
-  Visitor.delete(req.body.name, req.body.comment, function(result) {
+  Visitor.delete(req.body.id, function(result) {
     res.send({ id: result });
   });
 };
