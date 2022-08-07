@@ -20,7 +20,6 @@ exports.insert = (name, comment, cb) => {
   cnn.query(sql, (err, rows) => {
     if (err) throw err;
 
-    // console.log(rows);
     cb(rows.insertId);
   });
 };
@@ -34,3 +33,25 @@ exports.delete = (id,cb) => {
     cb(id);
   });
 };
+
+
+exports.select = (id ,cb) => {
+  var sql = `select * from visitor where ID = ${id};`
+
+  cnn.query(sql, (err, rows) => {
+    if (err) throw err;
+    // console.log(rows);
+    cb(rows)
+  })
+}
+
+exports.update = (id, name, comment, cb) => {
+  var sql = `update visitor set name='${name}', comment='${comment}' where id = ${id}`
+
+  cnn.query(sql, (err, rows) => {
+    if (err) throw err;
+    // console.log(rows);
+    let dataArr = [id, name, comment];
+    cb(dataArr);
+  })
+}

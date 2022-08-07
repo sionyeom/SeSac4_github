@@ -25,3 +25,17 @@ exports.delete_comment = function(req, res) {
     res.send({ id: result });
   });
 };
+
+exports.select_comment = function(req, res) {
+  Visitor.select(req.body.id, function(result ) {
+    // console.log(result);
+    res.send({data : result})
+  })
+}
+
+exports.update_comment = function (req, res) {
+  Visitor.update(req.body.id, req.body.name, req.body.comment, function (result) {
+    // console.log(result);
+    res.send({data : result});
+  })   
+}
