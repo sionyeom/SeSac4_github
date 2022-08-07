@@ -47,7 +47,6 @@
             $(arg0).parent().parent().remove();
         })
       }
-      
       // Input값 갱신   
       function updateInput(arg0) {
         var value = $(arg0).val();
@@ -64,7 +63,8 @@
         .then((data) => {
         $('#name').val(data.name);
         $('#comment').val(data.comment);
-        let updateButton = `<button value="${data.ID}" type="button" onclick="updateComment(this);">수정</button>`;
+        let updateButton = `<button id="updateBtn" value="${data.ID}" type="button" onclick="updateComment(this);">수정</button>`;
+        
         $("#button-group").append(updateButton);
 
         })
@@ -92,14 +92,18 @@
           let html = `<td>${data[0]}</td>
           <td>${data[1]}</td>
           <td>${data[2]}</td>
-          <td><button value=${data[0]}> onclick="updateInput(this);">수정</button></td>
+          <td><button value=${data[0]} onclick="updateInput(this);">수정</button></td>
           <td>
-            <button value=${data[0]}> onclick="deleteComment(this);">삭제</button>
+            <button value=${data[0]} onclick="deleteComment(this);">삭제</button>
           </td>`;
           // console.log($(`tr #${data[0]}`));
-          console.log($(`tr #${id}`).attr('id'));
+          $(`tr[id=${id}]`).html(html);
+          $("input[id=name]").val("");
+          $("input[id=comment]").val("");
+          $("button[id=updateBtn]").remove();
+          
         })
-
+        console.log();
       }
 
 
