@@ -20,11 +20,11 @@ exports.modify_comment = function(req, res) {
   console.log(req.body);
 };
 
-exports.delete_comment = function(req, res) {
-  Visitor.delete(req.body.id, function(result) {
-    res.send({ id: result });
-  });
-};
+// exports.delete_comment = function(req, res) {
+//   Visitor.delete(req.body.id, function(result) {
+//     res.send({ id: result });
+//   });
+// };
 
 exports.select_comment = function(req, res) {
   Visitor.select(req.body.id, function(result) {
@@ -45,5 +45,17 @@ exports.update_comment = function(req, res) {
 exports.get_visitor = (req, res) => {
   Visitor.get_visitor(req.query.id, function(result) {
     res.send({ result: result[0] });
+  });
+};
+
+exports.patch_comment = (req, res) => {
+  Visitor.update(req.body, function(result) {
+    res.send("수정 성공");
+  });
+};
+
+exports.delete_comment = (req, res) => {
+  Visitor.delete(req.body.id, function(result) {
+    res.send("삭제 성공");
   });
 };

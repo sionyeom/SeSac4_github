@@ -24,15 +24,15 @@ exports.insert = (name, comment, cb) => {
   });
 };
 
-exports.delete = (id, cb) => {
-  var sql = `delete from visitor where id = ${id}`;
+// exports.delete = (id, cb) => {
+//   var sql = `delete from visitor where id = ${id}`;
 
-  cnn.query(sql, (err, rows) => {
-    if (err) throw err;
+//   cnn.query(sql, (err, rows) => {
+//     if (err) throw err;
 
-    cb(id);
-  });
-};
+//     cb(id);
+//   });
+// };
 
 exports.select = (id, cb) => {
   var sql = `select * from visitor where id = '${id}';`;
@@ -64,6 +64,24 @@ exports.get_visitor = (id, cb) => {
     if (err) throw err;
 
     // console.log(rows);
+    cb(rows);
+  });
+};
+
+exports.update = (data, cb) => {
+  sql = `update visitor set name='${data.name}', comment='${data.comment}' where id=${data.id};`;
+
+  cnn.query(sql, (err, rows) => {
+    if (err) throw err;
+    cb(rows);
+  });
+};
+
+exports.delete = (id, cb) => {
+  sql = `delete from visitor where id = ${id}`;
+
+  cnn.query(sql, (err, rows) => {
+    if (err) throw err;
     cb(rows);
   });
 };
