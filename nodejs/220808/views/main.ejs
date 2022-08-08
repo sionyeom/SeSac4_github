@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 검색</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        function editInfo (no) {
+            axios({
+                    method : "get",
+                    url : `http://localhost:8080/member/get?id_no=${no}`
+                })
+                .then((rep) => {
+                    return rep.data;
+                })
+                .then((data) => {
+                    var html = 
+                    `<form id="form_comment">
+                        <fieldset>
+                        <legend>회원정보 수정</legend>
+                        <div><input id="id" name="id" type="text" placeholder="아이디를 입력해주세요" value="${data.id}"/></div>
+                        <div><input id="name" name="name" type="text" placeholder="이름을 입력해주세요" value="${data.name}"/></div>
+                        <br>
+                        <div id="button-group">
+                            <button type="button" onclick="modifyInfo(${data.id_no});">수정하기</button>
+                            <button type="button" onclick="cancerModify();">취소</button>
+                        </div>
+                        </fieldset>
+                    </form>
+                    `;
+                    document.getElementById("modifyContainer").innerHTML = html;
+                });
+        }
+        // 수정 - 취소
+        function cancerModify() {
+          $('#form_comment').remove();
+        }
+
+        // 수정 - 수정하기
+        function modifyInfo(no) {
+          var form = document.getElementById("form_comment")
+          console.log(form);
+          axios({
+            method : "post",
+            url : `http://localhost:8080/member/modifyInfo`,
+            data : {
+              no : no,
+              id : form.id.value,
+              name : form.name.value,
+            }         
+          })
+          .then((rep) => {
+            alert(rep.data);
+            $("#form_comment").remove();
+            location.reload();
+          })
+        }
+
+        // 회원탈퇴
+        function deleteInfo(no) {
+          axios({
+            method : "delete",
+            url : `http://localhost:8080/member/deleteInfo`,
+            data : {
+              no : no,
+            }         
+          })
+          .then((rep) => {
+            alert(rep.data);
+            $("#form_comment").remove();
+            location.reload();
+          })
+        }
+    </script>
+</head>
+<body>
+    <div id="btn-container">
+      <button onclick="location.replace('/member/login')">로그아웃</button>
+    </div>
+    <div id="modifyContainer">
+    </div>
+    <br />
+    <table id="member_list" border="1" cellspacing="0" cellpadding="5">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>ID</th>
+          <th>이름</th>
+          <th colspan="2">회원 관리</th>
+        </tr>
+      </thead>
+        <tbody>
+            <% for ( let i = 0; i < data.length; i++ ){ %>
+                <tr id=<%=data[i].id_no%>>
+                  <td><%=data[i].id_no%></td>
+                  <td><%=data[i].id%></td>
+                  <td><%=data[i].name%></td>
+                  <td><button value=<%=data[i].id%> onclick="editInfo('<%=data[i].id_no%>');">회원정보수정</button></td>
+                  <td>
+                    <button value=<%=data[i].id%> onclick="deleteInfo('<%=data[i].id_no%>');">회원탈퇴</button>
+                  </td>
+                </tr>
+                <% } %>
+      </tbody>
+    </table>
+</body>
+</html>`

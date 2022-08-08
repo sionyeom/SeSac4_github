@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        function login() {
+          var form = document.getElementById("form_info");
+          if(form.id.value === "" || form.pw.value === ""){
+            alert("아이디와 비밀번호를 모두 입력해주세요!");
+          }else{
+            axios({
+              method: "post",
+              url: "http://localhost:8080/member/post_login",
+              data: {
+                id: form.id.value,
+                pw: form.pw.value,
+              },
+            })
+            .then(rep => {
+              if(rep.data.length == 0 ){
+                alert("아이디 또는 비밀번호가 틀렸습니다!");
+              }else{
+              var name = rep.data[0].name;
+              alert(`로그인에 성공하셨습니다. ${name}님 어서오세요`);
+              location.replace("/member/main");
+              }
+            })
+            .catch(error => {
+              alert('입력하신 정보를 확인해주세요.');
+            })
+            }
+      }
+        
+          
+    </script>
+</head>
+<body>
+  <form id="form_info">
+    <fieldset>
+        <legend>로그인</legend>
+    <label>
+        아이디
+        <br>
+        <input type="text" name="id" placeholder="이름" ><br>
+    </label>
+    <br>
+    <label>
+        비밀번호
+        <br>
+        <input type="password" name="pw" placeholder="비밀번호" ><br>
+    </label>
+    </fieldset>
+    <br>
+    <p class="msg"></p>
+    <button type="button" onclick="login();">로그인</button>
+    <button type="button" onclick="location.replace('/member/register');">회원가입</button>
+</form>
+</body>
+</html>
