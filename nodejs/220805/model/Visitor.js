@@ -7,7 +7,7 @@ const cnn = mysql.createConnection({
   database: "sesac"
 });
 
-exports.get_visitor = cb => {
+exports.get_visitors = cb => {
   cnn.query("select * from visitor;", (err, rows) => {
     if (err) throw err;
     // row는 output
@@ -35,7 +35,7 @@ exports.delete = (id, cb) => {
 };
 
 exports.select = (id, cb) => {
-  var sql = `select * from visitor where id = ${id};`;
+  var sql = `select * from visitor where id = '${id}';`;
 
   cnn.query(sql, (err, rows) => {
     if (err) throw err;
@@ -52,5 +52,18 @@ exports.update = (id, name, comment, cb) => {
     // console.log(rows);
     let dataArr = [id, name, comment];
     cb(dataArr);
+  });
+};
+
+exports.get_visitor = (id, cb) => {
+  // id 컬럼의 값이 id 인 데이터를 1개만 검색한다.
+  // console.log(id);
+  var sql = `select * from visitor where id = ${id} limit 1;`;
+
+  cnn.query(sql, (err, rows) => {
+    if (err) throw err;
+
+    // console.log(rows);
+    cb(rows);
   });
 };

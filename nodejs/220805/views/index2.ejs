@@ -9,7 +9,7 @@
                 var form = document.getElementById("form_comment");
                 axios({
                     method: 'post',
-                    url: 'http://localhost:8000/visitor/write',
+                    url: 'http://localhost:8080/visitor/write',
                     data: {
                         name: form.name.value,
                         comment: form.comment.value
@@ -25,6 +25,28 @@
                     $( "table" ).append(html);
                 });
             }
+
+            function editComment (id) {
+                axios({
+                    method : "post",
+                    url : `http://localhost:8080/visitor/get?id=${id}`
+                })
+                .then((rep) => {
+                    return rep.data;
+                })
+                .then((data) => {
+                    var form = document.getElementById("form_comment");
+                    form.name.value = data.result.name;
+                    form.comment.value = data.result.comment;
+
+                    var html = 
+                    `<button type='button' onclick='editDo(${id});'>수정</button>`;
+
+                    document.getElementById("button-group").innerHTML = html;
+                })
+                    
+            }
+
         </script>
     </head>
     <body>
@@ -59,6 +81,7 @@
                         <td><%=data[i].id%></td>
                         <td><%=data[i].name%></td>
                         <td><%=data[i].comment%></td>
+                        <td><button type="button" onclick="editComment('<%=data[i].id%>')">수정</button></td>
                     </tr>
                 <%
                     }

@@ -4,8 +4,6 @@ const express = require("express");
 const app = express();
 const port = 8080;
 const bodyParser = require("body-parser");
-const multer = require("multer");
-const path = require("path");
 const router = require("./routes");
 
 app.set("view engine", "ejs");
