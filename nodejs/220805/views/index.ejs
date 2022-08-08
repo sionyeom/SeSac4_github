@@ -63,7 +63,7 @@
         .then((data) => {
         $('#name').val(data.name);
         $('#comment').val(data.comment);
-        let updateButton = `<button id="updateBtn" value="${data.ID}" type="button" onclick="updateComment(this);">수정</button>`;
+        let updateButton = `<button id="updateBtn" value="${data.id}" type="button" onclick="updateComment(this);">수정</button>`;
         
         $("#button-group").append(updateButton);
 
@@ -75,7 +75,6 @@
         let id = $(arg0).val();
         let name = $("#name").val();
         let comment = $("#comment").val();
-        
         axios({
           method : "post",
           url : "http://localhost:8080/visitor/update",
@@ -101,9 +100,7 @@
           $("input[id=name]").val("");
           $("input[id=comment]").val("");
           $("button[id=updateBtn]").remove();
-          
         })
-        console.log();
       }
 
 
@@ -135,13 +132,13 @@
       </thead>
       <tbody>
         <% for ( let i = 0; i < data.length; i++ ){ %>
-        <tr id=<%=data[i].ID%>>
-          <td><%=data[i].ID%></td>
+        <tr id=<%=data[i].id%>>
+          <td><%=data[i].id%></td>
           <td><%=data[i].name%></td>
           <td><%=data[i].comment%></td>
-          <td><button value=<%=data[i].ID%> onclick="updateInput(this);">수정</button></td>
+          <td><button value=<%=data[i].id%> onclick="updateInput(this);">수정</button></td>
           <td>
-            <button value=<%=data[i].ID%> onclick="deleteComment(this);">삭제</button>
+            <button value=<%=data[i].id%> onclick="deleteComment(this);">삭제</button>
           </td>
         </tr>
         <% } %>
