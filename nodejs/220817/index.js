@@ -25,9 +25,11 @@ app.get("/", (req,res) => {
         res.render("index", {isLogin: false});
     }
 });
+
 app.get("/login", (req,res) => {
     res.render("login");
 })
+
 app.post("/login", (req,res) => {
     if ( req.body.id == info.id && req.body.pw == info.pw ) {
         req.session.user = req.body.id;
@@ -41,6 +43,7 @@ app.post("/login", (req,res) => {
         );
     }
 });
+
 app.get("/logout", (req,res) => {
     const user = req.session.user;
 
