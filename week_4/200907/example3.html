@@ -1,184 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        var socket = io.connect();
+      var socket = io.connect();
 
-        socket.on("connect", function() {
-            console.log("server connected");
+      socket.on("connect", function () {
+        console.log("server connected");
+      });
+
+      // 이름 지정
+      socket.on("getName", (data) => {
+        $("input[name=id]").val(data.name);
+        $(".myname").text(`어서오세요. ${$("input[name=id]").val()}님`);
+        scroll();
+      });
+
+      // 다른 사람 입장시
+      socket.on("name", (data) => {
+        let userArr = data.userArr;
+        // console.log(userArr);
+        // 리스트 갱신
+        $(".userList").empty();
+
+        userArr.forEach((e) => {
+          $(".userList").append(
+            `<div class="user" id="${e.id}" onclick="getId(this);">${e.name}</div>`
+          );
         });
 
-        // 이름 지정
-        socket.on("getName",(data) => {
-            $("input[name=id]").val(data.name);
-            // $(".box").append(`<div class="message">${data}님이 입장하셨습니다.</div>`);
-            $(".myname").text(`어서오세요. ${$("input[name=id]").val()}님`);
-            // $(".userList").append(`<div class="user" id="${data.dm}" onclick="getId(this);">${$("input[name=id]").val()}</div>`)
-            scroll();
+        // 메시지 박스 알림
+        $(".box").append(
+          `<div class="message">${data.name}님이 입장하셨습니다.</div>`
+        );
+        scroll();
+      });
+
+      // 닉네임이 변경되었을 시
+      socket.on("change name", (data) => {
+        $(".box").append(
+          `<div class="message">${data.before}님이 ${data.after}로 변경했습니다.</div>`
+        );
+        scroll();
+      });
+
+      // 다른 사람 나갈시
+      socket.on("alertDisconnect", (data) => {
+        console.log(data);
+        // 메시지 알림
+        $(".box").append(
+          `<div class="message">${data.name}님이 나가셨습니다..</div>`
+        );
+
+        // html 초기화
+        $(".userList").empty();
+        let userArr = data.userArr;
+
+        // 리스트 갱신 html 반복
+        userArr.forEach((e) => {
+          $(".userList").append(
+            `<div class="user" id="${e.id}" onclick="getId(this);">${e.name}</div>`
+          );
         });
 
-        // 다른 사람 입장시
-        socket.on("name",(data) => {
-            $(".box").append(`<div class="message">${data.name}님이 입장하셨습니다.</div>`);
-            $(".userList").append(`<div class="user" id="${data.dm}" onclick="getId(this);">${data.name}</div>`)
-            scroll();
-        });
+        scroll();
+      });
 
-        // 닉네임이 변경되었을 시
-        socket.on("change name",(data) => {
-            $(".box").append(`<div class="message">${data.before}님이 ${data.after}로 변경했습니다.</div>`);
-            scroll();
-        });
-
-        // 다른 사람 나갈시
-        socket.on("alertDisconnect",(data) => {
-            console.log(data);
-            $(".box").append(`<div class="message">${data.name}님이 나가셨습니다..</div>`);
-            $(".count").append();
-            scroll();
-        });
-
-        // 메시지 받기
-        socket.on("getMsg",(data) => {
-            // 내 이름과 다를 시에만 메시지창을 띄움
-            if(data.name != $("input[name=id]").val()) {
-                $(".box").append(`<div class="your-meg-container"><div class="yourmessage">${data.name} : ${data.message}</div></div>`);
-                scroll();
-            }
-        });
-
-        // 개인 메시지 받기
-        socket.on("getDm", (data) => {
-            console.log(data.from,data.msg);
-            $(".box_dm").append(`<div class="your-meg-container"><div class="yourmessage">${data.from} : ${data.msg}</div></div>`);
-               
-        })
-
-        function sendMsg() {
-            let id =$("input[name=id]").val();
-            let message = $("input[name=txt]").val();
-            let data = {name : id, message : message};
-            socket.emit("sendMsg", data);
-            $("input[name=txt]").val('');
-            $(".box").append(`<div class="my-meg-container"><div class="mymessage">${data.message}</div></div>`);
-            scroll();
+      // 메시지 받기
+      socket.on("getMsg", (data) => {
+        // 내 이름과 다를 시에만 메시지창을 띄움
+        if (data.name != $("input[name=id]").val()) {
+          $(".box").append(
+            `<div class="your-meg-container"><div class="yourmessage">${data.name} : ${data.message}</div></div>`
+          );
+          scroll();
         }
-        function changeName() {
-            let id =$("input[name=id]").val();
-            let name = $("input[name=chg]").val();
-            let data = {before : id, after : name};
-            socket.emit("changeName", data);
-            $("input[name=chg]").val('');
-            alert(`${id}에서 ${name}으로 닉네임이 변경되었습니다!`);
-            // $(".box").append(`<div class="my-meg-container"><div class="mymessage">${data.message}</div></div>`);
-        }
-        function scroll() {
-            let chat = document.querySelector('.box');
-            chat.scrollTop = chat.scrollHeight;
-        }
-        function getId(target) {
-            // dm을 위한 id값 할당
-            let dm_id = $(target).attr('id');
-            let dm_name = $(target).text();
-            $(".dm-user").text(dm_name)
-            $("input[name=dm-id]").val(dm_id);
+      });
 
-        }
-        function sendDm() {
-            let dm_writer = $("input[name=id]").val();
-            let dm_id = $("input[name=dm-id]").val();
-            let dm_msg = $("input[name=dm_msg]").val();
-            console.log(dm_writer,dm_id,dm_msg);
-            socket.emit("sendDm", {from : dm_writer, to : dm_id, msg: dm_msg});
-        }
+      // 개인 메시지 받기
+      socket.on("getDm", (data) => {
+        console.log(data.from, data.msg);
+        $(".box_dm").append(
+          `<div class="your-meg-container"><div class="yourmessage">${data.from} : ${data.msg}</div></div>`
+        );
+      });
+
+      function sendMsg() {
+        let id = $("input[name=id]").val();
+        let message = $("input[name=txt]").val();
+        let data = { name: id, message: message };
+        socket.emit("sendMsg", data);
+        $("input[name=txt]").val("");
+        $(".box").append(
+          `<div class="my-meg-container"><div class="mymessage">${data.message}</div></div>`
+        );
+        scroll();
+      }
+      function changeName() {
+        let id = $("input[name=id]").val();
+        let name = $("input[name=chg]").val();
+        let data = { before: id, after: name };
+        socket.emit("changeName", data);
+        $("input[name=chg]").val("");
+        alert(`${id}에서 ${name}으로 닉네임이 변경되었습니다!`);
+        // $(".box").append(`<div class="my-meg-container"><div class="mymessage">${data.message}</div></div>`);
+      }
+      function scroll() {
+        let chat = document.querySelector(".box");
+        chat.scrollTop = chat.scrollHeight;
+      }
+      function getId(target) {
+        // dm을 위한 id값 할당
+        let dm_id = $(target).attr("id");
+        let dm_name = $(target).text();
+        $(".dm-user").text(dm_name);
+        $("input[name=dm-id]").val(dm_id);
+      }
+      function sendDm() {
+        let dm_writer = $("input[name=id]").val();
+        let dm_id = $("input[name=dm-id]").val();
+        let dm_msg = $("input[name=dm_msg]").val();
+        console.log(dm_writer, dm_id, dm_msg);
+        socket.emit("sendDm", { from: dm_writer, to: dm_id, msg: dm_msg });
+      }
     </script>
-</head>
-<style>
+  </head>
+  <style>
     ::-webkit-scrollbar {
-          display: none;
-        }
-    .box {
-        width: 300px;
-        height: 300px;
-        background: #9bbbd4;
-        margin-bottom: 30px;
-        overflow: auto;
-        position: relative;
-        padding: 5px;
-        border-radius: 5px;
+      display: none;
     }
-    .message {width: 85%;height: 25px;margin: 0 auto;color: white;line-height: 25px;text-align: center;border-radius: 5px;margin-bottom: 5px;font-size: 12px;}
+    .box {
+      width: 300px;
+      height: 300px;
+      background: #9bbbd4;
+      margin-bottom: 30px;
+      overflow: auto;
+      position: relative;
+      padding: 5px;
+      border-radius: 5px;
+    }
+    .message {
+      width: 85%;
+      height: 25px;
+      margin: 0 auto;
+      color: white;
+      line-height: 25px;
+      text-align: center;
+      border-radius: 5px;
+      margin-bottom: 5px;
+      font-size: 12px;
+    }
     .mymessage {
-    background: #fef01b;
-    display: inline-block;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 5px;
-    padding: 0 5px 0 5px;
-    margin: 5px 0 5px 5px;
+      background: #fef01b;
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 5px;
+      padding: 0 5px 0 5px;
+      margin: 5px 0 5px 5px;
     }
     .yourmessage {
-        background: #ffffff;
-        display: inline-block;
-        height: 30px;
-        line-height: 30px;
-        border-radius: 5px;
-        padding: 0 5px 0 5px;
-        margin: 5px 0 5px 5px;
+      background: #ffffff;
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 5px;
+      padding: 0 5px 0 5px;
+      margin: 5px 0 5px 5px;
     }
     .my-meg-container {
-        text-align: end;
-        padding-right: 5px;
+      text-align: end;
+      padding-right: 5px;
     }
     .your-meg-container {
-        padding-right: 5px;
+      padding-right: 5px;
     }
     .dm-user {
-    display: inline-block;
-}
-.box_dm {width: 300px;
-        height: 300px;
-        background: #9bbbd4;
-        margin-bottom: 30px;
-        overflow: auto;
-        position: relative;
-        padding: 5px;
-        border-radius: 5px;
-}
-</style>
-<body>
-    <input type="hidden" id="id" name="id" value="22">
-    <input type="hidden" id="dm-id" name="dm-id" value="">
-    
+      display: inline-block;
+    }
+    .box_dm {
+      width: 300px;
+      height: 300px;
+      background: #9bbbd4;
+      margin-bottom: 30px;
+      overflow: auto;
+      position: relative;
+      padding: 5px;
+      border-radius: 5px;
+    }
+  </style>
+  <body>
+    <input type="hidden" id="id" name="id" value="22" />
+    <input type="hidden" id="dm-id" name="dm-id" value="" />
+
     <h1>Hello Socket!</h1>
     <div class="myname"></div>
     <div class="userLog">
-        <div class="count"></div>
-        <div class="userList">
-            <!-- <div class="user" id="dn1UHyyZMql_QGDXAAAJ" onclick="getId(this);">sd</div> -->
-        </div>
+      <div class="count"></div>
+      <div class="userList">
+        <!-- <div class="user" id="dn1UHyyZMql_QGDXAAAJ" onclick="getId(this);">sd</div> -->
+      </div>
     </div>
     전체 채팅
     <div class="box">
-        <!-- <div class="my-meg-container"><div class="mymessage">${data.name} : ${data.message}</div></div> -->
+      <!-- <div class="my-meg-container"><div class="mymessage">${data.name} : ${data.message}</div></div> -->
     </div>
     개인 메시지
     <div class="box_dm">
-        <!-- <div class="my-meg-container"><div class="mymessage">${data.name} : ${data.message}</div></div> -->
+      <!-- <div class="my-meg-container"><div class="mymessage">${data.name} : ${data.message}</div></div> -->
     </div>
-   
-    <input class="txt" name="txt" type="text" placeholder="내용"><button onclick="sendMsg()">전송</button> 
-    <div style="margin-top: 15px;"></div>
-    <input class="chg" name="chg" type="text" placeholder="이름"><button onclick="changeName()">이름변경</button>
-    <div style="margin-top: 30px;">
-        <div class="dm-user">dm보낼 사람</div> :
-        <input class="chg" name="dm_msg" type="text" placeholder="dm메시지"><button onclick="sendDm()">Dm보내기</button>
+
+    <input class="txt" name="txt" type="text" placeholder="내용" /><button
+      onclick="sendMsg()"
+    >
+      전송
+    </button>
+    <div style="margin-top: 15px"></div>
+    <input class="chg" name="chg" type="text" placeholder="이름" /><button
+      onclick="changeName()"
+    >
+      이름변경
+    </button>
+    <div style="margin-top: 30px">
+      <div class="dm-user">dm보낼 사람</div>
+      :
+      <input
+        class="chg"
+        name="dm_msg"
+        type="text"
+        placeholder="dm메시지"
+      /><button onclick="sendDm()">Dm보내기</button>
     </div>
-</body>
+  </body>
 </html>
