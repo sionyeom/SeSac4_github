@@ -17,17 +17,32 @@
       // 이름 지정
       socket.on("getName", (data) => {
         $("input[name=id]").val(data.name);
+        $("input[name=dm-id]").val(data.dm);
         $(".myname").text(`어서오세요. ${$("input[name=id]").val()}님`);
         scroll();
+      });
+
+      // 이름 변경 시 리스트 갱신
+      socket.on("changeName", (data) => {
+        let userArr = data;
+        // 리스트 갱신
+        $(".userList").empty();
+        // 배열에 따른 반복 html 코드 삽입
+        userArr.forEach((e) => {
+          $(".userList").append(
+            `<div class="user" id="${e.id}" onclick="getId(this);">${e.name}</div>`
+          );
+        });
+
+        console.log(data);
       });
 
       // 다른 사람 입장시
       socket.on("name", (data) => {
         let userArr = data.userArr;
-        // console.log(userArr);
         // 리스트 갱신
         $(".userList").empty();
-
+        // 배열에 따른 반복 html 코드 삽입
         userArr.forEach((e) => {
           $(".userList").append(
             `<div class="user" id="${e.id}" onclick="getId(this);">${e.name}</div>`
@@ -104,16 +119,20 @@
       function changeName() {
         let id = $("input[name=id]").val();
         let name = $("input[name=chg]").val();
-        let data = { before: id, after: name };
+        let dm_id = $("input[name=dm-id]").val();
+        let data = { before: id, after: name, id: dm_id };
         socket.emit("changeName", data);
         $("input[name=chg]").val("");
         alert(`${id}에서 ${name}으로 닉네임이 변경되었습니다!`);
         // $(".box").append(`<div class="my-meg-container"><div class="mymessage">${data.message}</div></div>`);
       }
+
+      // 스크롤 자동 갱신
       function scroll() {
         let chat = document.querySelector(".box");
         chat.scrollTop = chat.scrollHeight;
       }
+
       function getId(target) {
         // dm을 위한 id값 할당
         let dm_id = $(target).attr("id");

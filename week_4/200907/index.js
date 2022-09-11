@@ -58,13 +58,20 @@ io.on("connect", function (socket) {
   // 이름 변경
   socket.on("changeName", (data) => {
     name = data.after;
-    let beforeName = data.before;
     let dataArr = {
-      before: beforeName,
+      before: data.before,
       after: name,
+      id: data.id,
     };
     io.to(socket.id).emit("getName", { name: dataArr.after, dm: socket.id });
-    io.emit("change name", dataArr);
+    // id가 일치할 경우 해당 id의 배열의 name을 변경한다.
+    userArr.filter((e) => {
+      if (e.id == dataArr.id) {
+        e.name = dataArr.after;
+      }
+    });
+    // 변경된 이름으로 리스트 갱신한다.
+    io.emit("changeName", userArr);
   });
 
   // 개인 메시지 보내기
@@ -93,4 +100,3 @@ io.on("connect", function (socket) {
 http.listen(8000, () => {
   console.log("Server Port : ", 8000);
 });
-3;
