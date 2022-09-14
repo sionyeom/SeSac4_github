@@ -152,3 +152,27 @@ function sendDm() {
 function exitDm() {
   $(".dm-container").hide();
 }
+
+// 이름 변경 창 출력
+function openRename() {
+  $(".rename-container").toggle();
+}
+
+function namespace(nsp) {
+  socket.emit("joinRoom", "1", "sion");
+  socket.on("joinRoom", (num, name) => {});
+}
+function exitroom(nsp) {
+  socket.emit("exitroom");
+  socket.on("exitRoom", () => {
+    console.log("success");
+  });
+}
+
+$(() => {
+  $(".txt").on("keyup", function(key) {
+    if (key.keyCode == 13) {
+      sendMsg();
+    }
+  });
+});

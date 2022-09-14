@@ -25,7 +25,33 @@ app.get("/example3", (req, res) => {
 let count = 1;
 let userCount = 0;
 let userArr = [];
+
+// NameSpace 1번
+const namespace1 = io.of("/namespace1");
+namespace1.on("connection", socket => {
+  namespace1.emit("news", {
+    hello: "Someone connected at namespace1"
+  });
+});
+
 io.on("connect", function(socket) {
+  // 요거 추가
+  socket.on("joinRoom", (num, name) => {
+    console.log(num, name);
+    socket.join("testroom", () => {
+      // io.emit("joinRoom", num, name);
+    });
+    console.log(io.sockets.adapter.rooms);
+    // console.log(Object.keys(io.sockets.adapter.sids["testroom"]));
+  });
+  // 나가기
+  socket.on("exitroom", () => {
+    socket.leave("testroom", () => {
+      // io.emit("joinRoom", num, name);
+    });
+    console.log(io.sockets.adapter.rooms);
+  });
+
   // 클릭 시 이벤트 예제
   socket.on("click", data => {
     console.log("client : ", data);

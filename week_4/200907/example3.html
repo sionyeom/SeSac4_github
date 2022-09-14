@@ -14,6 +14,7 @@
     <input type="hidden" id="id" name="id" value="22" />
     <h1>Hello Socket!</h1>
     <div class="myname"></div>
+    <button class="rename-btn" onclick="openRename();">이름 변경</button>
     <div class="box-container">
         <div class="user-list-container">
             <div class="user-list-title">접속자</div>
@@ -26,16 +27,14 @@
             <!-- <div class="my-meg-container"><div class="mymessage">${data.name} : ${data.message}</div></div> -->
             </div>
             <div class="txt-container">
-                <input class="txt" name="txt" type="text" placeholder="내용" /><button class="txt-btn" onclick="sendMsg()">전송</button>
+                <input class="txt" name="txt" type="text" placeholder="내용" /><button class="txt-btn" onclick="sendMsg()">▶</button>
             </div>
         </div>
     </div>
     <div style="margin-top: 15px"></div>
-    <input class="chg" name="chg" type="text" placeholder="이름" /><button
-      onclick="changeName()"
-    >
-      이름변경
-    </button>
+    <div class="rename-container">
+        <input class="chg" name="chg" type="text" placeholder="이름" /><button onclick="changeName()">이름변경</button>
+    </div>
     <div class="dm-container" style="margin-top: 30px">
         <input type="hidden" id="dm-id" name="dm-id" value="" />
         <div class="dm-user">dm보낼 사람</div> :
@@ -47,5 +46,7 @@
       /><button onclick="sendDm()">Dm보내기</button>
       <button class="dm-exit" onclick="exitDm();">X</button>
     </div>
+    <button onclick="namespace(1)">namespace1</button>
+    <button onclick="exitroom()">namespace1 exit</button>
   </body>
 </html>

@@ -184,3 +184,23 @@
 .txt-btn:hover {
   background-color: #edda49;
 }
+.myname {
+}
+.rename-btn {
+  margin-bottom: 50px;
+  margin-top: 20px;
+  background: #321c1b;
+  color: white;
+  border: none;
+  height: 25px;
+}
+.rename-btn:hover {
+  background-color: #edda49;
+  color: #321c1b;
+}
+.rename-container {
+  display: none;
+  position: absolute;
+  top: 0%;
+  left: 40%;
+}
