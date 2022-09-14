@@ -3,6 +3,7 @@ const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 
+app.use(express.static("public"));
 // 예제 1번
 app.get("/", (req, res) => {
   console.log("client");
@@ -24,9 +25,9 @@ app.get("/example3", (req, res) => {
 let count = 1;
 let userCount = 0;
 let userArr = [];
-io.on("connect", function (socket) {
+io.on("connect", function(socket) {
   // 클릭 시 이벤트 예제
-  socket.on("click", (data) => {
+  socket.on("click", data => {
     console.log("client : ", data);
     socket.emit("clickResponse", socket.id);
   });
@@ -50,22 +51,22 @@ io.on("connect", function (socket) {
   io.emit("name", { name: name, userArr: userArr });
 
   // 메시지 보내기
-  socket.on("sendMsg", (data) => {
+  socket.on("sendMsg", data => {
     console.log(`${name} : ${data.message}`);
     io.emit("getMsg", data);
   });
 
   // 이름 변경
-  socket.on("changeName", (data) => {
+  socket.on("changeName", data => {
     name = data.after;
     let dataArr = {
       before: data.before,
       after: name,
-      id: data.id,
+      id: data.id
     };
     io.to(socket.id).emit("getName", { name: dataArr.after, dm: socket.id });
     // id가 일치할 경우 해당 id의 배열의 name을 변경한다.
-    userArr.filter((e) => {
+    userArr.filter(e => {
       if (e.id == dataArr.id) {
         e.name = dataArr.after;
       }
@@ -75,7 +76,7 @@ io.on("connect", function (socket) {
   });
 
   // 개인 메시지 보내기
-  socket.on("sendDm", (data) => {
+  socket.on("sendDm", data => {
     // 보내는 이
     let from = data.from;
     // 받는 이
@@ -87,10 +88,10 @@ io.on("connect", function (socket) {
   });
 
   // 유저 나갔을 경우 처리
-  socket.on("disconnect", (reason) => {
+  socket.on("disconnect", reason => {
     userCount--;
     console.log(userCount);
-    userArr = userArr.filter((user) => {
+    userArr = userArr.filter(user => {
       return user.id !== socket.id;
     });
     io.emit("alertDisconnect", { name: name, dm: socket.id, userArr: userArr });
