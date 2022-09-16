@@ -5,12 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.emojipicker.js"></script>
+
+    <!-- Emoji Data -->
+    <link rel="stylesheet" type="text/css" href="css/jquery.emojipicker.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.emojipicker.tw.css">
+    <script type="text/javascript" src="js/jquery.emojis.js"></script>
+  
     <link rel="stylesheet" href="css/example3.css">
     <script src="js/example3.js"></script>
   </head>
   <body>
+    <!-- 이름 변경 모달 -->
+    <div class="modal-container">
+      <div class="modal-back" onclick="openRename();"></div>
+      <div class="modal-rename-container">
+        <div class="modal-rename-title">이름 변경</div>
+        <div class="modal-rename-body">
+          <input class="chg" name="chg" type="text" placeholder="이름" />
+          <button onclick="changeName()">이름변경</button>    
+        </div>
+      </div>
+    </div>
     <input type="hidden" id="id" name="id" value="22" />
     <h1>Hello Socket!</h1>
     <div class="myname"></div>
@@ -26,27 +44,33 @@
             <div class="box">
             <!-- <div class="my-meg-container"><div class="mymessage">${data.name} : ${data.message}</div></div> -->
             </div>
+            <div class="txt-plus-container">
+              <div class="txt-plus-wrapper">
+                <div class="txt-plus-feat-btn">사진</div>
+
+              </div>
+            </div>
             <div class="txt-container">
-                <input class="txt" name="txt" type="text" placeholder="내용" /><button class="txt-btn" onclick="sendMsg()">▶</button>
+              <div class="txt-plus-btn" onclick="openPlusModal();">+</div>
+              <input class="txt" name="txt" type="text" placeholder="내용" /><button class="txt-btn" onclick="sendMsg()">▶</button>
             </div>
         </div>
+        <div class="dm-container">
+          <div>
+            <input type="hidden" id="dm-id" name="dm-id" value="" />
+            <div class="dm-user">dm보낼 사람</div> :
+            <input class="chg" name="dm_msg" type="text" placeholder="dm메시지"/>
+            <button onclick="sendDm()">Dm보내기</button>
+          <button class="dm-exit" onclick="exitDm();">X</button>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <!-- <input type="text" id="input-default" class="emojiable-option" placeholder="Default"> -->
     </div>
     <div style="margin-top: 15px"></div>
-    <div class="rename-container">
-        <input class="chg" name="chg" type="text" placeholder="이름" /><button onclick="changeName()">이름변경</button>
-    </div>
-    <div class="dm-container" style="margin-top: 30px">
-        <input type="hidden" id="dm-id" name="dm-id" value="" />
-        <div class="dm-user">dm보낼 사람</div> :
-      <input
-        class="chg"
-        name="dm_msg"
-        type="text"
-        placeholder="dm메시지"
-      /><button onclick="sendDm()">Dm보내기</button>
-      <button class="dm-exit" onclick="exitDm();">X</button>
-    </div>
-    <button onclick="namespace(1)">namespace1</button>
-    <button onclick="exitroom()">namespace1 exit</button>
+    
+    <!-- <button onclick="namespace(1)">namespace1</button>
+    <button onclick="exitroom()">namespace1 exit</button> -->
   </body>
 </html>

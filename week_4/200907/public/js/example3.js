@@ -21,7 +21,7 @@ socket.on("changeName", data => {
   let list = userArr.filter(arr => {
     return arr.name != id;
   });
-
+  console.log(list);
   // 배열에 따른 반복 html 코드 삽입
   list.forEach(e => {
     $(".user-list").append(
@@ -90,8 +90,13 @@ socket.on("alertDisconnect", data => {
 socket.on("getMsg", data => {
   // 내 이름과 다를 시에만 메시지창을 띄움
   if (data.name != $("input[name=id]").val()) {
+    let time = getNow();
     $(".box").append(
-      `<div class="your-meg-container"><div class="yourmessage">${data.name} : ${data.message}</div></div>`
+      `<div class="your-meg-container">
+                <div class="opponent-id">${data.name}</div>
+                <div class="yourmessage">${data.message}</div>
+                <div class="meg-time">${time}</div>
+      </div>`
     );
     scroll();
   }
@@ -99,9 +104,13 @@ socket.on("getMsg", data => {
 
 // 개인 메시지 받기
 socket.on("getDm", data => {
-  console.log(data.from, data.msg);
+  let time = getNow();
   $(".box").append(
-    `<div class="your-meg-container"><div class="yourmessage dm">(DM) ${data.from} : ${data.msg}</div></div>`
+    `<div class="your-meg-container">
+    <div class="opponent-id">(DM) ${data.from}</div>
+    <div class="yourmessage">${data.msg}</div>
+    <div class="meg-time">${time}</div>
+</div>`
   );
 });
 
@@ -109,12 +118,23 @@ function sendMsg() {
   let id = $("input[name=id]").val();
   let message = $("input[name=txt]").val();
   let data = { name: id, message: message };
-  socket.emit("sendMsg", data);
-  $("input[name=txt]").val("");
-  $(".box").append(
-    `<div class="my-meg-container"><div class="mymessage">${data.message}</div></div>`
-  );
-  scroll();
+
+  // 메시지가 비어있을 경우 보내지 않는다.
+  if (message !== "") {
+    socket.emit("sendMsg", data);
+    // 현재 시간 할당
+    let time = getNow();
+    // 입력한 메시지 채팅방에 출력
+    $(".box").append(
+      `<div class="my-meg-container">
+        <div class="meg-time">${time}</div>
+        <div class="mymessage">${data.message}</div>
+      </div>`
+    );
+    // input 값 초기화
+    $("input[name=txt]").val("");
+    scroll();
+  }
 }
 function changeName() {
   let id = $("input[name=id]").val();
@@ -124,7 +144,7 @@ function changeName() {
   socket.emit("changeName", data);
   $("input[name=chg]").val("");
   alert(`${id}에서 ${name}으로 닉네임이 변경되었습니다!`);
-  // $(".box").append(`<div class="my-meg-container"><div class="mymessage">${data.message}</div></div>`);
+  $(".modal-container").toggle();
 }
 
 // 스크롤 자동 갱신
@@ -155,7 +175,7 @@ function exitDm() {
 
 // 이름 변경 창 출력
 function openRename() {
-  $(".rename-container").toggle();
+  $(".modal-container").toggle();
 }
 
 function namespace(nsp) {
@@ -168,11 +188,24 @@ function exitroom(nsp) {
     console.log("success");
   });
 }
+// 현재 시간 반환 함수
+function getNow() {
+  const date = new Date();
+  return date.toLocaleTimeString("ko-kr");
+}
 
 $(() => {
+  $(".txt").emojiPicker();
+
+  // 엔터 누르면 메시지 전송
   $(".txt").on("keyup", function(key) {
     if (key.keyCode == 13) {
       sendMsg();
     }
   });
 });
+
+// 플러스 모달 open 함수
+function openPlusModal() {
+  $(".txt-plus-container").toggle();
+}

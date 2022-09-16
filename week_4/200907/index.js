@@ -4,6 +4,7 @@ const http = require("http").Server(app);
 const io = require("socket.io")(http);
 
 app.use(express.static("public"));
+
 // 예제 1번
 app.get("/", (req, res) => {
   console.log("client");
@@ -14,6 +15,10 @@ app.get("/", (req, res) => {
 app.get("/example2", (req, res) => {
   console.log("client");
   res.sendFile(__dirname + "/example2.html");
+});
+app.get("/demo", (req, res) => {
+  console.log("client");
+  res.sendFile(__dirname + "/demo.html");
 });
 
 // 예제 3번
