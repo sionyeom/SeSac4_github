@@ -6,10 +6,10 @@ const io = require("socket.io")(http);
 app.use(express.static("public"));
 
 // 예제 1번
-app.get("/", (req, res) => {
-  console.log("client");
-  res.sendFile(__dirname + "/index.html");
-});
+// app.get("/", (req, res) => {
+//   console.log("client");
+//   res.sendFile(__dirname + "/index.html");
+// });
 
 // 예제 2번
 app.get("/example2", (req, res) => {
@@ -22,7 +22,7 @@ app.get("/demo", (req, res) => {
 });
 
 // 예제 3번
-app.get("/example3", (req, res) => {
+app.get("/", (req, res) => {
   console.log("client");
   res.sendFile(__dirname + "/example3.html");
 });

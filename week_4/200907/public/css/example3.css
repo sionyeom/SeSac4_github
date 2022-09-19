@@ -3,7 +3,7 @@
 }
 .box-container {
   display: grid;
-  grid-template-columns: 150px 50% 1fr;
+  grid-template-columns: 150px 500px 1fr;
   height: 533px;
 }
 .chat-container {
@@ -176,7 +176,7 @@
   height: 100%;
   position: absolute;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 .txt-plus-feat-btn {
   text-align: center;
@@ -223,4 +223,35 @@
   text-align: center;
   font-size: 24px;
   font-weight: bold;
+}
+
+/* 알림창 */
+.modal-alert {
+  position: absolute;
+  background: #9bbbd4;
+  border: 3px solid #321c1b;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  top: -300px;
+  right: -300px;
+  z-index: 3;
+}
+.modal-alert-title {
+  position: absolute;
+  width: 200px;
+  height: 50px;
+  bottom: 200px;
+  left: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+.modal-alert-content {
+  position: absolute;
+  width: 200px;
+  height: 50px;
+  bottom: 150px;
+  left: 75px;
+  line-height: 50px;
+  text-align: center;
 }
