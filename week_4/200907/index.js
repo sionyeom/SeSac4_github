@@ -24,7 +24,7 @@ app.get("/demo", (req, res) => {
 // 예제 3번
 app.get("/", (req, res) => {
   console.log("client");
-  res.sendFile(__dirname + "/example3.html");
+  res.sendFile(__dirname + "/socketio.html");
 });
 
 let count = 1;
@@ -33,13 +33,13 @@ let userArr = [];
 
 // NameSpace 1번
 const namespace1 = io.of("/namespace1");
-namespace1.on("connection", socket => {
+namespace1.on("connection", (socket) => {
   namespace1.emit("news", {
-    hello: "Someone connected at namespace1"
+    hello: "Someone connected at namespace1",
   });
 });
 
-io.on("connect", function(socket) {
+io.on("connect", function (socket) {
   // 요거 추가
   socket.on("joinRoom", (num, name) => {
     console.log(num, name);
@@ -58,7 +58,7 @@ io.on("connect", function(socket) {
   });
 
   // 클릭 시 이벤트 예제
-  socket.on("click", data => {
+  socket.on("click", (data) => {
     console.log("client : ", data);
     socket.emit("clickResponse", socket.id);
   });
@@ -82,22 +82,22 @@ io.on("connect", function(socket) {
   io.emit("name", { name: name, userArr: userArr });
 
   // 메시지 보내기
-  socket.on("sendMsg", data => {
+  socket.on("sendMsg", (data) => {
     console.log(`${name} : ${data.message}`);
     io.emit("getMsg", data);
   });
 
   // 이름 변경
-  socket.on("changeName", data => {
+  socket.on("changeName", (data) => {
     name = data.after;
     let dataArr = {
       before: data.before,
       after: name,
-      id: data.id
+      id: data.id,
     };
     io.to(socket.id).emit("getName", { name: dataArr.after, dm: socket.id });
     // id가 일치할 경우 해당 id의 배열의 name을 변경한다.
-    userArr.filter(e => {
+    userArr.filter((e) => {
       if (e.id == dataArr.id) {
         e.name = dataArr.after;
       }
@@ -107,7 +107,7 @@ io.on("connect", function(socket) {
   });
 
   // 개인 메시지 보내기
-  socket.on("sendDm", data => {
+  socket.on("sendDm", (data) => {
     // 보내는 이
     let from = data.from;
     // 받는 이
@@ -119,10 +119,10 @@ io.on("connect", function(socket) {
   });
 
   // 유저 나갔을 경우 처리
-  socket.on("disconnect", reason => {
+  socket.on("disconnect", (reason) => {
     userCount--;
     console.log(userCount);
-    userArr = userArr.filter(user => {
+    userArr = userArr.filter((user) => {
       return user.id !== socket.id;
     });
     io.emit("alertDisconnect", { name: name, dm: socket.id, userArr: userArr });

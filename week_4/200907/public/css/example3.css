@@ -1,19 +1,47 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  display: grid;
+  background: #cdc9c3;
+  width: 100%;
+  height: 100%;
+  grid-template-rows: 70px 1fr 100px;
+}
+/* 타이틀 스타일 */
+.title-container {
+  display: grid;
+  grid-template-columns: 85px 1fr 85px;
+  background: #d9e4dd;
+  color: #555555;
+  border-bottom: 3px solid #555555;
+}
+.title-text {
+  line-height: 70px;
+  font-size: 45px;
+  text-align: center;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }
 .box-container {
   display: grid;
-  grid-template-columns: 150px 500px 1fr;
-  height: 533px;
+  grid-template-columns: 150px 1fr;
+  height: 100%;
+  border-radius: 0 0 10px 10px;
 }
 .chat-container {
-  background: #9bbbd4;
+  background: #fbf7f0;
   position: relative;
 }
 .box {
-  /* width: 100%; */
-  height: 479px;
-  max-height: 479px;
+  height: calc(100% - 54px);
   overflow: auto;
   position: relative;
   margin: 7px;
@@ -22,7 +50,7 @@
   width: 85%;
   height: 25px;
   margin: 0 auto;
-  color: white;
+  color: #555555;
   line-height: 25px;
   text-align: center;
   border-radius: 5px;
@@ -30,7 +58,8 @@
   font-size: 12px;
 }
 .mymessage {
-  background: #fef01b;
+  background: #d9e4dd;
+  color: #555555;
   display: inline-block;
   line-height: 17px;
   border-radius: 5px;
@@ -40,7 +69,8 @@
   word-break: break-all;
 }
 .yourmessage {
-  background: #fff;
+  background: #d9e4dd;
+  color: #555555;
   display: inline-block;
   line-height: 17px;
   border-radius: 5px;
@@ -93,13 +123,11 @@
 }
 
 .user-list-container {
-  background-color: #321c1b;
-  border-right: 3px solid #edda49;
+  background-color: #555555;
 }
 .user-list-title {
   text-align: center;
   color: white;
-  background-color: #edda49;
 }
 .user-list {
   color: white;
@@ -117,14 +145,14 @@
   text-align: center;
   line-height: 40px;
   vertical-align: middle;
-  background-color: #321c1b;
-  color: #edda49;
+  background-color: #a0bcc2;
+  color: #555555;
   font-size: 25px;
   cursor: pointer;
 }
 .txt-plus-btn:hover {
-  background-color: #edda49;
-  color: #321c1b;
+  background-color: #dae5d0;
+  color: #555555;
 }
 .txt {
   border: none;
@@ -138,15 +166,15 @@
 }
 .txt-btn {
   width: 40px;
-  background: #321c1b;
-  color: #edda49;
   border: none;
   padding: 0;
   cursor: pointer;
+  background-color: #a0bcc2;
+  color: #555555;
 }
 .txt-btn:hover {
-  background-color: #edda49;
-  color: #321c1b;
+  background-color: #dae5d0;
+  color: #555555;
 }
 .rename-btn {
   margin-bottom: 50px;
@@ -162,14 +190,14 @@
 }
 .txt-plus-container {
   display: none;
-  background: #321c1b;
+  background: #a0bcc2;
   height: 100px;
   width: 100%;
-  border-bottom: 3px solid #edda49;
   position: absolute;
   bottom: 40px;
   /* display: grid; */
   grid-template-columns: 1fr 1fr 1fr;
+  border-radius: 5px 5px 0 0;
 }
 .txt-plus-wrapper {
   width: 100%;
@@ -182,9 +210,9 @@
   text-align: center;
   width: 40px;
   padding: 5px;
-  background: #edda49;
+  background: #d9e4dd;
   border-radius: 4px;
-  color: #321c1b;
+  color: #555555;
   margin: auto;
   margin-top: 27px;
   height: 33px;
