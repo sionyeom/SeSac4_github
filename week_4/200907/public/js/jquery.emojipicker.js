@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
   var pluginName = "emojiPicker",
     defaults = {
       width: "200",
@@ -10,7 +10,7 @@
       recentCount: 36,
       emojiSet: "apple",
       container: "body",
-      button: true
+      button: true,
     };
 
   var MIN_WIDTH = 280,
@@ -27,7 +27,7 @@
     { name: "travel", label: "Travel & Places" },
     { name: "object", label: "Objects" },
     { name: "symbol", label: "Symbols" },
-    { name: "flag", label: "Flags" }
+    { name: "flag", label: "Flags" },
   ];
 
   function EmojiPicker(element, options) {
@@ -56,7 +56,7 @@
 
     var possiblePositions = [
       "left",
-      "right"
+      "right",
       /*,'top',
                               'bottom'*/
     ];
@@ -77,14 +77,14 @@
   }
 
   $.extend(EmojiPicker.prototype, {
-    init: function() {
+    init: function () {
       this.active = false;
       this.addPickerIcon();
       this.createPicker();
       this.listen();
     },
 
-    addPickerIcon: function() {
+    addPickerIcon: function () {
       // The wrapper is not needed if they have chosen to not use a button
       if (this.settings.button) {
         var elementHeight = this.$el.outerHeight();
@@ -108,7 +108,7 @@
       }
     },
 
-    createPicker: function() {
+    createPicker: function () {
       // Show template
       this.$picker = $(getPickerHTML())
         .appendTo(this.$container)
@@ -127,7 +127,7 @@
       }
     },
 
-    destroyPicker: function() {
+    destroyPicker: function () {
       if (this.isMobile) return this;
 
       this.$picker.unbind("mouseover");
@@ -140,7 +140,7 @@
       return this;
     },
 
-    listen: function() {
+    listen: function () {
       // If the button is being used, wrapper has not been set,
       //    and will not need a listener
       if (this.settings.button) {
@@ -175,7 +175,7 @@
         .on("keyup search", $.proxy(this.searchCharEntered, this));
 
       // Shortcode hover
-      this.$picker.find(".shortcode").mouseover(function(e) {
+      this.$picker.find(".shortcode").mouseover(function (e) {
         e.stopPropagation();
       });
 
@@ -185,7 +185,7 @@
       $(window).resize($.proxy(this.updatePosition, this));
     },
 
-    updatePosition: function() {
+    updatePosition: function () {
       /*  Process:
           1. Find the nearest positioned element by crawling up the ancestors, record it's offset
           2. Find the bottom left or right of the input element, record this (Account for position setting of left or right)
@@ -210,22 +210,22 @@
       // Step 3
       var diffOffset = {
         top: elOffset.top - parentOffset.top,
-        left: elOffset.left - parentOffset.top
+        left: elOffset.left - parentOffset.top,
       };
 
       this.$picker.css({
         top: diffOffset.top,
-        left: diffOffset.left
+        left: diffOffset.left,
       });
 
       return this;
     },
 
-    hide: function() {
+    hide: function () {
       this.$picker.hide(
         this.settings.fadeTime,
         "linear",
-        function() {
+        function () {
           this.active = false;
           if (this.settings.onHide) {
             this.settings.onHide(this.$picker, this.settings, this.active);
@@ -234,13 +234,13 @@
       );
     },
 
-    show: function() {
+    show: function () {
       this.$el.focus();
       this.updatePosition();
       this.$picker.show(
         this.settings.fadeTime,
         "linear",
-        function() {
+        function () {
           this.active = true;
           if (this.settings.onShow) {
             this.settings.onShow(this.$picker, this.settings, this.active);
@@ -253,7 +253,7 @@
      *  EVENTS  *
      ************/
 
-    iconClicked: function() {
+    iconClicked: function () {
       if (this.$picker.is(":hidden")) {
         this.show();
         if (this.$picker.find(".search input").length > 0) {
@@ -264,7 +264,7 @@
       }
     },
 
-    emojiClicked: function(e) {
+    emojiClicked: function (e) {
       var clickTarget = $(e.target);
       var emojiSpan;
       if (clickTarget.is("em")) {
@@ -291,7 +291,7 @@
       this.element.dispatchEvent(event);
     },
 
-    emojiMouseover: function(e) {
+    emojiMouseover: function (e) {
       var emojiShortcode = $(e.target)
         .parent()
         .find(".emoji")
@@ -311,7 +311,7 @@
         );
     },
 
-    emojiMouseout: function(e) {
+    emojiMouseout: function (e) {
       $(e.target)
         .parents(".emojiPicker")
         .find(".shortcode .info")
@@ -320,7 +320,7 @@
       $(e.target).parents(".emojiPicker").find(".shortcode .random").show();
     },
 
-    emojiCategoryClicked: function(e) {
+    emojiCategoryClicked: function (e) {
       var section = "";
 
       // Update tab
@@ -349,10 +349,10 @@
       var that = this;
       $(".sections").animate(
         {
-          scrollTop: scrollDistance
+          scrollTop: scrollDistance,
         },
         250,
-        function() {
+        function () {
           that.$picker
             .find(".sections")
             .on("scroll", $.proxy(that.emojiScroll, that)); // Enable scroll event
@@ -360,7 +360,7 @@
       );
     },
 
-    emojiTabMouseover: function(e) {
+    emojiTabMouseover: function (e) {
       var section = "";
       if ($(e.target).parent().hasClass("tab")) {
         section = $(e.target).parent().attr("data-tab");
@@ -391,9 +391,9 @@
       $shortcode.find(".info").show().html(categoryHtml);
     },
 
-    emojiScroll: function(e) {
+    emojiScroll: function (e) {
       var sections = $("section");
-      $.each(sections, function(key, value) {
+      $.each(sections, function (key, value) {
         var section = sections[key];
         var offsetFromTop = $(section).position().top;
 
@@ -421,17 +421,17 @@
       });
     },
 
-    pickerClicked: function(e) {
+    pickerClicked: function (e) {
       e.stopPropagation();
     },
 
-    clickOutside: function(e) {
+    clickOutside: function (e) {
       if (this.active) {
         this.hide();
       }
     },
 
-    searchCharEntered: function(e) {
+    searchCharEntered: function (e) {
       var searchTerm = $(e.target).val();
       var searchEmojis = $(e.target)
         .parents(".sections")
@@ -453,7 +453,7 @@
         var results = [];
         searchEmojiWrap.find("em").remove();
 
-        $.each($.fn.emojiPicker.emojis, function(i, emoji) {
+        $.each($.fn.emojiPicker.emojis, function (i, emoji) {
           var shortcode = emoji.shortcode;
           if (shortcode.indexOf(searchTerm) > -1) {
             results.push(
@@ -466,13 +466,13 @@
         sections.show();
         searchEmojiWrap.hide();
       }
-    }
+    },
   });
 
-  $.fn[pluginName] = function(options) {
+  $.fn[pluginName] = function (options) {
     // Calling a function
     if (typeof options === "string") {
-      this.each(function() {
+      this.each(function () {
         var plugin = $.data(this, pluginName);
         switch (options) {
           case "toggle":
@@ -486,7 +486,7 @@
       return this;
     }
 
-    this.each(function() {
+    this.each(function () {
       // Don't attach to the same element twice
       if (!$.data(this, pluginName)) {
         $.data(this, pluginName, new EmojiPicker(this, options));
@@ -500,13 +500,13 @@
   function getPickerHTML() {
     var nodes = [];
     var aliases = {
-      undefined: "object"
+      undefined: "object",
     };
     var items = {};
     var localStorageSupport = typeof Storage !== "undefined" ? true : false;
 
     // Re-Sort Emoji table
-    $.each($.fn.emojiPicker.emojis, function(i, emoji) {
+    $.each($.fn.emojiPicker.emojis, function (i, emoji) {
       var category = aliases[emoji.category] || emoji.category;
       items[category] = items[category] || [];
       items[category].push(emoji);
@@ -656,7 +656,7 @@
   }
 
   function toUnicode(code) {
-    var codes = code.split("-").map(function(value, index) {
+    var codes = code.split("-").map(function (value, index) {
       return parseInt(value, 16);
     });
     return String.fromCodePoint.apply(null, codes);
@@ -711,7 +711,7 @@
 
     $(".sections").animate(
       {
-        scrollTop: currentScrollTop + newScrollToHeight
+        scrollTop: currentScrollTop + newScrollToHeight,
       },
       0
     );

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JUST CHAT</title>
+    <!-- 제이쿼리, axios -->
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- socket.io -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
+    <!-- Emoji CSS -->
+    <link rel="stylesheet" type="text/css" href="css/jquery.emojipicker.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/jquery.emojipicker.a.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/jquery.emojipicker.g.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/jquery.emojipicker.tw.css"
+    />
+    <!-- emoji JS-->
+    <script type="text/javascript" src="js/jquery.emojis.js"></script>
+    <script type="text/javascript" src="js/jquery.emojipicker.js"></script>
+    <!-- fontawesome icon -->
+    <script
+      src="https://kit.fontawesome.com/e13a984139.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- customizing files(css, js) -->
+    <link rel="stylesheet" href="css/justchat.css" />
+    <script src="js/justchat.js"></script>
+  </head>
+  <body>
+    <!-- 유저 정보 -->
+    <input type="hidden" id="id" name="id" value="" />
+
+    <!-- 언급 모달 -->
+    <!-- <div class="modal-alert">
+      <div class="modal-alert-title">상대방이 당신을 언급했습니다!</div>
+      <div class="modal-alert-content">#사용자_3 뭐해!</div>
+    </div> -->
+
+    <!-- 유투브 영상 보내기 모달 -->
+    <div class="modal-container" id="youtube-modal-type">
+      <div class="modal-back" onclick="openYoutube();"></div>
+      <div class="modal-youtube-container">
+        <div class="modal-title">유투브 영상 공유</div>
+        <div class="modal-rename-body">
+          <div class="modal-rename-describe">
+            공유할 유투브의 공유 링크를 넣어주세요.
+          </div>
+          <input
+            class="modal-rename-input"
+            name="modal-input-youtube"
+            type="text"
+            placeholder="유투브 링크를 가재해주세요."
+            value=""
+          />
+          <button class="modal-btn alert" onclick="sendYoutubeLink();">
+            등록
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 공지사항 출력 모달 -->
+    <div class="notice-modal-show" id="notice-show-modal">
+      <div class="notice-title">공지사항</div>
+      <div class="notice-container">
+        <div class="notice-none">공지사항이 없습니다.</div>
+      </div>
+    </div>
+
+    <!-- 공지사항 입력 모달 -->
+    <div class="modal-container" id="notice-modal-type">
+      <div class="modal-back" onclick="openNoticeWrite();"></div>
+      <div class="modal-alert-container">
+        <div class="modal-title">공지사항 등록</div>
+        <div class="modal-rename-body">
+          <div class="modal-rename-describe">
+            등록할 공지사항을 작성해주세요.
+          </div>
+          <input
+            class="modal-rename-input"
+            name="modal-rename-input"
+            type="text"
+            placeholder="20자 이내로 입력해주세요."
+            maxlength="20"
+            value=""
+          />
+          <button class="modal-btn alert" onclick="sendNotice()">등록</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 이름 변경 모달 -->
+    <div class="modal-container" id="rename-modal">
+      <div class="modal-back" onclick="openRename();"></div>
+      <div class="modal-rename-container">
+        <div class="modal-title">회원정보 관리</div>
+        <div class="modal-rename-body">
+          <div class="modal-rename-describe">이름</div>
+          <input
+            class="modal-rename-input"
+            name="chg"
+            type="text"
+            placeholder="이름"
+            value=""
+          />
+          <button class="modal-btn" onclick="changeName()">이름변경</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="title-container">
+        <div class="title-icon">
+          <i class="fa-sharp fa-solid fa-comments"></i>
+        </div>
+        <div class="title-text">JUST CHAT</div>
+        <div class="title-setting">
+          <i
+            class="fa-sharp fa-solid fa-circle-exclamation"
+            onclick="openNotice();"
+          ></i>
+        </div>
+        <div class="title-setting">
+          <i class="fa-solid fa-cog" id="setting" onclick="openRename();"></i>
+        </div>
+      </div>
+      <div>
+        <div class="box-container">
+          <div class="user-list-container">
+            <div class="user-list-title">접속자</div>
+            <div class="user-list-describe">
+              접속자를 클릭하면 <br />dm을 보낼 수 있어요!
+            </div>
+            <div class="user-list"></div>
+          </div>
+          <div class="chat-container">
+            <div class="box"></div>
+            <div class="txt-plus-container">
+              <div class="txt-plus-wrapper">
+                <!-- 공지 -->
+                <div class="txt-plus-feat-btn" onclick="openNoticeWrite();">
+                  <i class="fa-solid fa-bell"></i>
+                </div>
+                <!-- 언급 -->
+                <!-- <div class="txt-plus-feat-btn">
+                  <i class="fa-solid fa-circle-exclamation"></i>
+                </div> -->
+                <!-- 유투브 링크 공유 -->
+                <div class="txt-plus-feat-btn" onclick="openYoutube();">
+                  <i class="fa-brands fa-youtube"></i>
+                </div>
+              </div>
+            </div>
+            <div class="txt-container">
+              <div class="txt-plus-btn" onclick="openPlusModal();">+</div>
+              <input
+                class="txt"
+                name="txt"
+                type="text"
+                placeholder="내용"
+              /><button class="txt-btn" onclick="sendMsg()">▶</button>
+            </div>
+          </div>
+          <!-- DM 모달 -->
+          <div class="dm-container">
+            <input type="hidden" id="dm-id" name="dm-id" value="" />
+            <div class="dm-title">DM 보내기</div>
+            <div class="dm-body">
+              <div class="dm-user">dm보낼 사람</div>
+              <input
+                class="dm-input"
+                name="dm_msg"
+                type="text"
+                placeholder="dm메시지"
+              />
+              <button class="dm-send-btn" onclick="sendDm()">전송</button>
+              <button class="dm-exit" onclick="exitDm();">X</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
