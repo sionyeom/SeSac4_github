@@ -1,0 +1,29 @@
+.inputBox {
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.input {
+  display: inline-block;
+  padding: 10px;
+}
+
+.select {
+  margin: 10px;
+}
+
+.searchBox {
+  margin: 30px;
+}
+
+table {
+  width: 50%;
+}
+table tr th {
+  padding: 10px 30px;
+  text-align: center;
+}
+table tr td {
+  padding: 0 30px;
+  text-align: center;
+}

@@ -1,0 +1,110 @@
+.hi {
+  height: 400px;
+}
+
+.container {
+  width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  height: 100px;
+  line-height: 100px;
+  font-size: 30px;
+  background-color: #f7ebd9;
+  color: #c47134;
+}
+
+.divider {
+  line-height: 50px;
+}
+
+.block {
+  width: 12%;
+  display: inline-block;
+  vertical-align: top;
+}
+.red {
+  background: red;
+  height: 100px;
+}
+
+.orange {
+  background: orange;
+  height: 140px;
+}
+
+.yellow {
+  background: yellow;
+  height: 180px;
+}
+
+.green {
+  background: green;
+  height: 220px;
+}
+.blue {
+  background: blue;
+  height: 260px;
+}
+.navy {
+  background: navy;
+  height: 300px;
+}
+.purple {
+  background: purple;
+  height: 340px;
+}
+
+/* div {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  background-color: green;
+  position: relative;
+}
+.another {
+  background-color: red;
+  left: 100px;
+  top: 100px;
+}
+.eye {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  top: 15px;
+  left: 10px;
+}
+.eyeball {
+  height: 20px;
+  width: 20px;
+  background-color: black;
+  position: absolute;
+}
+.inner {
+  position: relative;
+  background-color: orange;
+  top: 20px;
+  left: 20px;
+}
+.yellow {
+  background-color: yellow;
+  top: 30px;
+  left: 30px;
+}
+.green {
+  background-color: green;
+  top: 20px;
+  left: 50px;
+}
+.blue {
+  background-color: blue;
+  top: 20px;
+  left: 50px;
+}
+.lawn {
+  top: -100;
+  width: 1000px;
+  height: 300px;
+} */
