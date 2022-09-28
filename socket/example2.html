@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var socket = io.connect();
+
+        socket.on("connect", function() {
+            console.log("server connected");
+        });
+        socket.on("name",(data) => {
+            console.log(data);
+            $(".box").append(`<div class="message">${data}님이 입장하셨습니다.</div>`);
+        });
+        // socket.on("clickResponse",(data) => {
+        //     console.log("response : ", data);
+        // });
+        
+    </script>
+</head>
+<style>
+    .box {
+        width: 300px;
+        height: 300px;
+        background: rgb(0,0,0,0.5);
+        margin-bottom: 30px;
+    }
+    .message {width: 70%;height: 30px;margin: 0 auto;background: black;color: white;line-height: 30px;text-align: center;}
+</style>
+<body>
+    <h1>Hello Socket!</h1>
+    <div class="box">
+    </div>
+    <input type="text" placeholder="내용"><button onclick="">전송</button>
+</body>
+</html>
