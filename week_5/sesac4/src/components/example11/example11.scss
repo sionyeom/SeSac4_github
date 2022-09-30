@@ -1,0 +1,48 @@
+.example11 {
+  div {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .circle1 {
+    background-color: pink;
+    position: relative;
+    animation: example 3s linear infinite;
+  }
+  .circle2 {
+    background-color: yellow;
+    position: relative;
+    animation: example 3s linear infinite;
+  }
+  .circle3 {
+    background-color: green;
+    position: relative;
+    animation: example 3s linear infinite;
+  }
+}
+@mixin animation($padding: 10px, $margin: 20px) {
+  padding: $padding;
+  margin-bottom: $margin;
+}
+@keyframes example {
+  0% {
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    left: 200px;
+    top: 0px;
+  }
+  50% {
+    left: 200px;
+    top: 200px;
+  }
+  75% {
+    left: 0px;
+    top: 200px;
+  }
+  100% {
+    left: 0px;
+    top: 0px;
+  }
+}

@@ -1,0 +1,21 @@
+@import './util.scss';
+@import '~include-media/dist/include-media';
+@import '~open-color/open-color';
+
+.useScss {
+  display: flex;
+  background-color: $oc-gray-2;
+
+  @include media("<768px") {
+    background-color: $oc-gray-9;
+  }
+  .box {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+
+    &.red {
+      background-color: &red;
+    }
+  }
+}

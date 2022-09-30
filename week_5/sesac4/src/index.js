@@ -15,8 +15,13 @@ import Example6 from "./components/example6/Example6";
 import Ref from "./components/ref/Ref";
 // import { Map } from "./components/map/Map";
 // import Inherit from "./components/inherit/Inherit";
-import Example8 from "./components/example8/Example8";
+// import Example8 from "./components/example8/Example8";
+// import { Example9 } from "./components/example9/Example9";
+import Example10 from "./components/example10/Example10";
+import { Example11 } from "./components/example11/Example11";
+import UseStyleComponents from "./components/7SyleComponent/UseStyleComponents";
 import App from "./App";
+import { CSSModule } from "./components/6CSSModule/CSSModule";
 import reportWebVitals from "./reportWebVitals";
 // import "./App.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -27,7 +32,8 @@ root.render(
     {/* <Example1 food={"냉면"}/> */}
     {/* <Example2 title={"제목"} author={"염시온"} price={"30,000"} type={"교과서"}/> */}
     {/* <Example3 text={"리액리액"}/> */}
-    <Example8/>
+    {/* <Example9/> */}
+    <Example11/>
     {/* <Ref/> */}
     {/* <Example4_2/> */}
   </>
